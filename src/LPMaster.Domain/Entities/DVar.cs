@@ -1,10 +1,16 @@
-﻿namespace LPMaster.Domain.Entities;
+﻿using LPMaster.Domain.Entities.Base;
 
-public class DVar
+namespace LPMaster.Domain.Entities;
+
+public class DVar : INameable, IDescribable
 {
     public int Id { get; set; }
 
     public int ModelId { get; init; }
 
     public int ColIndex { get; init; }
+
+    public string? Name { get; init; }
+
+    public string? Description { get; init; }
 }

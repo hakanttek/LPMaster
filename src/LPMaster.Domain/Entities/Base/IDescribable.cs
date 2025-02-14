@@ -2,5 +2,5 @@
 
 public interface IDescribable
 {
-    public string? Description { get; }
+    public string? Description { get; init; }
 }

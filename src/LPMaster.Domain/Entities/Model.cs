@@ -1,6 +1,8 @@
-﻿namespace LPMaster.Domain.Entities;
+﻿using LPMaster.Domain.Entities.Base;
 
-public class Model
+namespace LPMaster.Domain.Entities;
+
+public class Model : INameable, IDescribable
 {
     public int Id { get; init; }
 
@@ -9,4 +11,8 @@ public class Model
     public required Expression ObjectiveFunction { get; init; }
 
     public required IEnumerable<Equation> Constraints { get; init; }
+
+    public string? Name { get; init; }
+
+    public string? Description { get; init; }
 }

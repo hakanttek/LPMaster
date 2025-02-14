@@ -1,6 +1,8 @@
-﻿namespace LPMaster.Domain.Entities;
+﻿using LPMaster.Domain.Entities.Base;
 
-public class Equation
+namespace LPMaster.Domain.Entities;
+
+public class Equation : IDescribable
 {
     public int Id { get; init; }
 
@@ -17,4 +19,6 @@ public class Equation
     public int ModelId { get; init; }
 
     public required Model Model { get; init; }
+
+    public string? Description { get; init; }
 }
