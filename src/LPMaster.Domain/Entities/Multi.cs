@@ -11,4 +11,8 @@ public class Multi
     public int ExpressionId { get; init; }
 
     public bool IsConstant => DVarId is null;
+
+    public int? ModelId => DVar?.ModelId;
+
+    public Model? Model => DVar?.Model;
 }

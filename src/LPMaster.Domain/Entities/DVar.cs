@@ -8,6 +8,8 @@ public class DVar : IUnique<int>, INameable, IDescribable
 
     public int ModelId { get; init; }
 
+    public required Model Model { get; init; }
+
     public int ColIndex { get; init; }
 
     public string? Name { get; init; }
