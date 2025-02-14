@@ -2,9 +2,9 @@
 
 namespace LPMaster.Domain.Entities;
 
-public class DVar : INameable, IDescribable
+public class DVar : IUnique<int>, INameable, IDescribable
 {
-    public int Id { get; set; }
+    public int Id { get; init; }
 
     public int ModelId { get; init; }
 

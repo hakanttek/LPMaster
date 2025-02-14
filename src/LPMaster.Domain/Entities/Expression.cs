@@ -2,7 +2,7 @@
 
 namespace LPMaster.Domain.Entities;
 
-public class Expression : IDescribable
+public class Expression : IUnique<int>, IDescribable
 {
     public int Id { get; init; }
 

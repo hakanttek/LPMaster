@@ -2,7 +2,7 @@
 
 namespace LPMaster.Domain.Entities;
 
-public class Equation : IDescribable
+public class Equation : IUnique<int>, IDescribable
 {
     public int Id { get; init; }
 
