@@ -1,4 +1,4 @@
-﻿namespace LPMaster.Modelling;
+﻿namespace LPMaster.Domain;
 
 public class Expression
 {
