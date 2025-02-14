@@ -1,4 +1,4 @@
-﻿namespace LPMaster.Domain;
+﻿namespace LPMaster.Domain.Entities;
 
 public class Multi
 {
