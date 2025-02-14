@@ -13,4 +13,8 @@ public class Equation
     public required Expression RightExpression { get; init; }
 
     public int Relation { get; init; }
+
+    public int ModelId { get; init; }
+
+    public required Model Model { get; init; }
 }
