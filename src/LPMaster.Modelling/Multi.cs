@@ -1,6 +1,6 @@
 ﻿namespace LPMaster.Modelling;
 
-class Multi
+public class Multi
 {
     public double Coef { get; init; }
     

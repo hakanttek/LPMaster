@@ -1,6 +1,6 @@
 ﻿namespace LPMaster.Modelling;
 
-class Equation
+public class Equation
 {
     public int Id { get; init; }
 

@@ -1,6 +1,6 @@
 ﻿namespace LPMaster.Modelling;
 
-class Expression
+public class Expression
 {
     public int Id { get; init; }
 

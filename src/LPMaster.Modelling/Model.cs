@@ -1,6 +1,6 @@
 ﻿namespace LPMaster.Modelling;
 
-class Model
+public class Model
 {
     public int Id { get; init; }
 
