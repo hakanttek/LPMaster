@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LPMaster.Domain.Entities;
 
-public class DVar : IUnique<int>, INameable, IDescribable
+public class DVar : IUnique<int>, INameable, IDescribable, IVerifiable
 {
     public int Id { get; init; }
 
@@ -17,4 +17,6 @@ public class DVar : IUnique<int>, INameable, IDescribable
     public string? Name { get; init; }
 
     public string? Description { get; init; }
+
+    public bool Verified => ModelId == Model.Id;
 }
