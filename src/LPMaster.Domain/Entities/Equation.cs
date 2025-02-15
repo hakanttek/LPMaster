@@ -25,4 +25,9 @@ public class Equation : IUnique<int>, IDescribable
     public required Model Model { get; init; }
 
     public string? Description { get; init; }
+
+    public bool IsValid() =>
+        (LeftExpression.ModelId is null || LeftExpression.ModelId == ModelId) &&
+        (RightExpression.ModelId is null || RightExpression.ModelId == ModelId) &&
+        (LeftExpression.ModelId is not null || RightExpression.ModelId is not null);
 }
