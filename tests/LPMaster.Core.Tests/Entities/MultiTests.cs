@@ -64,4 +64,23 @@ public class MultiTests
             }
         });
     }
+
+    [Test]
+    [TestCase(true, false, TestName = "DvarIdIsChanged_ShoulNotdBeVerified")]
+    [TestCase(false, true, TestName = "DvarIdIsNotChanged_ShouldBeVerified")]
+    public void Verified_ReturnsExpectedValue(bool changeDVarId, bool expectedVerified)
+    {
+        // Arrange
+        var multi = new Multi()
+        {
+            DVarId = changeDVarId ? _dvar.Id + 1 : _dvar.Id,
+            DVar = _dvar
+        };
+
+        // Act
+        var verified = multi.Verified;
+
+        // Assert
+        Assert.That(verified, Is.EqualTo(expectedVerified));
+    }
 }

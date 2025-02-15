@@ -1,5 +1,4 @@
 ﻿using LPMaster.Domain.Entities;
-using System.Reflection;
 
 namespace LPMaster.Core.Tests.Entities;
 
@@ -15,8 +14,8 @@ public class DVarTests
     }
 
     [Test]
-    [TestCase(true, false, TestName = "DVarExists_IsConstantShouldBeFalse")]
-    [TestCase(false, true, TestName = "DVarDoesNotExist_IsConstantShouldBeTrue")]
+    [TestCase(true, false, TestName = "ModelIdIsChanged_ShoulNotdBeVerified")]
+    [TestCase(false, true, TestName = "ModelIdIsNotChanged_ShouldBeVerified")]
     public void Verified_ReturnsExpectedValue(bool changeModelId, bool expectedVerified)
     {
         // Arrange
