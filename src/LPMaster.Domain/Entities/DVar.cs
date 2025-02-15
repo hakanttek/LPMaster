@@ -1,4 +1,5 @@
 ﻿using LPMaster.Domain.Entities.Base;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LPMaster.Domain.Entities;
 
@@ -8,6 +9,7 @@ public class DVar : IUnique<int>, INameable, IDescribable
 
     public int ModelId { get; init; }
 
+    [ForeignKey(nameof(ModelId))]
     public required Model Model { get; init; }
 
     public int ColIndex { get; init; }
