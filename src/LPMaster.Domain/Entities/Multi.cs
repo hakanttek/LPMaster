@@ -12,8 +12,6 @@ public class Multi : IVerifiable
     [ForeignKey(nameof(DVarId))]
     public DVar? DVar { get; init; }
 
-    public int ExpressionId { get; init; }
-
     public bool IsConstant => DVar is null;
 
     public int? ModelId => DVar?.ModelId;

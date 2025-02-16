@@ -12,7 +12,7 @@ public class DVar : IUnique<int>, INameable, IDescribable, IVerifiable
     [ForeignKey(nameof(ModelId))]
     public required Model Model { get; init; }
 
-    public int ColIndex { get; init; }
+    public required int ColIndex { get; init; }
 
     public string? Name { get; init; }
 

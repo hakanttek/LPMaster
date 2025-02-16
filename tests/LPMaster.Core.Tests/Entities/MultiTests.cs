@@ -10,8 +10,8 @@ public class MultiTests
     public void Setup()
     {
         var oFunc = new Expression() { Multis = [] };
-        var model = new Model() { Constraints = [], ObjectiveFunction = oFunc };
-        _dvar = new DVar() { Model = model };
+        var model = new Model() { Id = 0, Object = 0, Constraints = [], ObjectiveFunction = oFunc };
+        _dvar = new DVar() { ColIndex = 1, Model = model };
     }
 
     [Test]

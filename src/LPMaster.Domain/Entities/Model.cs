@@ -4,9 +4,9 @@ namespace LPMaster.Domain.Entities;
 
 public class Model : IUnique<int>, INameable, IDescribable
 {
-    public int Id { get; init; }
+    public required int Id { get; init; }
 
-    public int Object { get; init; }
+    public required int Object { get; init; }
 
     public required Expression ObjectiveFunction { get; init; }
 
