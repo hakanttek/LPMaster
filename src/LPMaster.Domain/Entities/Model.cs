@@ -1,5 +1,6 @@
 ﻿using LPMaster.Domain.Entities.Base;
 using LPMaster.Domain.Enums;
+using System.Linq;
 
 namespace LPMaster.Domain.Entities;
 
@@ -17,5 +18,5 @@ public class Model : IHasId<int>, INameable, IDescribable, IVerifiable
 
     public string? Description { get; init; }
 
-    public bool Verified => throw new NotImplementedException();
+    public bool Verified => ObjectiveFunction.Verified && Constraints.All(c => c.Verified);
 }

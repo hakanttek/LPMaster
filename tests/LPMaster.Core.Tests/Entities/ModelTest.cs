@@ -5,13 +5,13 @@ namespace LPMaster.Core.Tests;
 public class ModelTest
 {
     [Test]
-    public void VerifyAll_ShouldReturnTrue()
+    public void Verified_ShouldReturnTrue()
     {
         // Assert
         var model = Fake.Model;
 
         // Act
-        var allVerified = model.VerifyAll();
+        var allVerified = model.Verified;
 
         // Assert
         Assert.That(allVerified, Is.True);
