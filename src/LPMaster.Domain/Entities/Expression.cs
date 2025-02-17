@@ -22,5 +22,5 @@ public class Expression : IUnique<int>, IDescribable, IVerifiable
         .Where(multi => multi.ModelId is not null)
         .Select(multi => multi.Model)
         .Distinct()
-        .SingleOrDefault() is not null;
+        .Count() == 1;
 }
