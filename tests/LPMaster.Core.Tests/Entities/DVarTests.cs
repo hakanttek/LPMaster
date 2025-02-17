@@ -1,4 +1,5 @@
 ﻿using LPMaster.Domain.Entities;
+using LPMaster.Domain.Enums;
 
 namespace LPMaster.Core.Tests.Entities;
 
@@ -10,7 +11,7 @@ public class DVarTests
     public void Setup()
     {
         var oFunc = new Expression() { Multis = [] };
-        _model = new Model() { Id = -1, Object = 0, Constraints = [], ObjectiveFunction = oFunc };
+        _model = new Model() { Id = -1, Objective = Objective.Minimization, Constraints = [], ObjectiveFunction = oFunc };
     }
 
     [Test]

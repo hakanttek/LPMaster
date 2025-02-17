@@ -1,5 +1,6 @@
 ﻿using Bogus;
 using LPMaster.Domain.Entities;
+using LPMaster.Domain.Enums;
 
 namespace LPMaster.Core.Tests;
 
@@ -8,7 +9,7 @@ public static class Fake
     #region Model
     public static IEnumerable<Model> CreateModel(int count) => new Faker<Model>()
             .RuleFor(m => m.Id, f => f.IndexGlobal)
-            .RuleFor(m => m.Object, f => f.Random.Int(0, 1))
+            .RuleFor(m => m.Objective, f => Objective.Minimization)
             .RuleFor(m => m.ObjectiveFunction, (f, e) => e.CreateDVar(f.Random.Int(1, 10)).ToExpression())
             .RuleFor(m => m.Constraints, f => CreateEquation(f.Random.Int(1, 10)))
             .Generate(count);
