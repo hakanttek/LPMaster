@@ -11,7 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{664C48BC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LPMaster.Core.Tests", "tests\LPMaster.Core.Tests\LPMaster.Core.Tests.csproj", "{E81EDE7B-3B34-4F7B-98A2-98100887823A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LPMaster.Solver", "src\LPMaster.Solver\LPMaster.Solver.csproj", "{5C32AC8F-AA93-40C9-B3C1-798A8C903682}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LPMaster.Application", "src\LPMaster.Application\LPMaster.Application.csproj", "{5C32AC8F-AA93-40C9-B3C1-798A8C903682}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

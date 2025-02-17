@@ -1,7 +1,7 @@
 ﻿using LPMaster.Domain.Entities;
-using LPMaster.Solver.Contracts.Repositories.Base;
+using LPMaster.Application.Contracts.Repositories.Base;
 
-namespace LPMaster.Solver.Contracts.Repositories;
+namespace LPMaster.Application.Contracts.Repositories;
 
 public interface IModelRepository : IRepository<Model>, INamedEntityRepository<Model>
 {

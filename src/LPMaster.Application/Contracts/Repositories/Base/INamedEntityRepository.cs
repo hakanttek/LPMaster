@@ -1,6 +1,6 @@
 ﻿using LPMaster.Domain.Entities.Base;
 
-namespace LPMaster.Solver.Contracts.Repositories.Base;
+namespace LPMaster.Application.Contracts.Repositories.Base;
 
 public interface INamedEntityRepository<TEntity> : IRepository<TEntity> where TEntity : class, INameable
 {
