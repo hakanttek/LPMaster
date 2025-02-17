@@ -3,7 +3,7 @@ using LPMaster.Domain.Enums;
 
 namespace LPMaster.Domain.Entities;
 
-public class Model : IHasId<int>, INameable, IDescribable
+public class Model : IHasId<int>, INameable, IDescribable, IVerifiable
 {
     public required int Id { get; init; }
 
@@ -16,4 +16,6 @@ public class Model : IHasId<int>, INameable, IDescribable
     public string? Name { get; init; }
 
     public string? Description { get; init; }
+
+    public bool Verified => throw new NotImplementedException();
 }
