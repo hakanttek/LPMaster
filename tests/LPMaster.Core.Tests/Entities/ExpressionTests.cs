@@ -26,7 +26,7 @@ public class ExpressionTests
         Assert.Multiple(() =>
         {
             Assert.That(model, Is.EqualTo(expectedModel));
-            Assert.That(model.Id, Is.EqualTo(expectedModel.Id));
+            Assert.That(model?.Id, Is.EqualTo(expectedModel?.Id));
         });
     }
 

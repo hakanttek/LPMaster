@@ -44,7 +44,7 @@ public static class Fake
     public static IEnumerable<Multi> CreateMulti(int count, DVar? dvar = null) => new Faker<Multi>()
         .RuleFor(m => m.Coef, f => f.Random.Double(1, 100))
         .RuleFor(m => m.DVar, f => dvar)
-        .RuleFor(m => m.DVarId, f => dvar?.Id)
+        .RuleFor(m => m.ColIndex, f => dvar?.ColIndex)
         .Generate(count);
 
     public static Multi CreateMulti(DVar? dvar = null) => CreateMulti(1, dvar).First();
@@ -52,7 +52,6 @@ public static class Fake
 
     #region DVar
     public static IEnumerable<DVar> CreateDVar(int count, Model model) => new Faker<DVar>()
-        .RuleFor(d => d.Id, f => f.IndexGlobal)
         .RuleFor(d => d.Model, f => model)
         .RuleFor(d => d.ModelId, f => model.Id)
         .RuleFor(d => d.ColIndex, f => f.IndexGlobal)

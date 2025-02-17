@@ -22,7 +22,7 @@ public class MultiTests
         // Arrange
         var multi = new Multi()
         {
-            DVarId = hasDVar ? _dvar.Id : null,
+            ColIndex = hasDVar ? _dvar.ColIndex : null,
             DVar = hasDVar ? _dvar : null
         };
 
@@ -41,7 +41,7 @@ public class MultiTests
         // Arrange
         var multi = new Multi()
         {
-            DVarId = hasDVar ? _dvar.Id : null,
+            ColIndex = hasDVar ? _dvar.ColIndex : null,
             DVar = hasDVar ? _dvar : null
         };
 
@@ -73,7 +73,7 @@ public class MultiTests
         // Arrange
         var multi = new Multi()
         {
-            DVarId = changeDVarId ? _dvar.Id + 1 : _dvar.Id,
+            ColIndex = changeDVarId ? _dvar.ColIndex + 1 : _dvar.ColIndex,
             DVar = _dvar
         };
 
