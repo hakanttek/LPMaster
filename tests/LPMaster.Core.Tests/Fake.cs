@@ -11,7 +11,7 @@ public static class Fake
             .RuleFor(m => m.Id, f => f.IndexGlobal)
             .RuleFor(m => m.Objective, f => Objective.Minimization)
             .RuleFor(m => m.ObjectiveFunction, (f, e) => e.CreateDVar(f.Random.Int(1, 10)).ToExpression())
-            .RuleFor(m => m.Constraints, f => CreateEquation(f.Random.Int(1, 10)))
+            .RuleFor(m => m.Constraints, (f, e) => CreateEquation(f.Random.Int(1, 10), e))
             .Generate(count);
 
     public static Model Model => CreateModel(1).First();
@@ -30,15 +30,14 @@ public static class Fake
     #endregion
 
     #region Equation
-    public static IEnumerable<Equation> CreateEquation(int count, Model? model = null) => new Faker<Equation>()
-            .RuleFor(e => e.Id, f => f.IndexGlobal)
+    public static IEnumerable<Equation> CreateEquation(int count, Model model) => new Faker<Equation>()
             .RuleFor(e => e.LeftExpression, (f, e) => model?.CreateDVar(f.Random.Int(1, 10)).ToExpression() ?? EmptyExpression)
             .RuleFor(e => e.LeftExpressionId, (f, e) => e.LeftExpression.Id)
             .RuleFor(e => e.RightExpression, f => model?.CreateDVar(f.Random.Int(1, 10)).ToExpression() ?? EmptyExpression)
             .RuleFor(e => e.RightExpressionId, (f, e) => e.RightExpression.Id)
+            .RuleFor(e => e.ModelId, f => model.Id)
+            .RuleFor(e => e.Model, f => model)
             .Generate(count);
-
-    public static Equation EmptyEquation => CreateEquation(1).First();
     #endregion
 
     #region Multi

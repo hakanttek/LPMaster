@@ -1,4 +1,5 @@
 ﻿using LPMaster.Domain.Entities;
+using LPMaster.Domain.Enums;
 
 namespace LPMaster.Core.Tests.Entities;
 
@@ -25,7 +26,9 @@ public class EquationTests
             LeftExpression = leftExpression,
             RightExpressionId = rightExpression.Id,
             RightExpression = rightExpression,
-            Model = _model
+            Model = _model,
+            ModelId = _model.Id,
+            Relation = Domain.Enums.Relation.Eq
         };
 
         var verified = equation.Verified;
@@ -47,7 +50,9 @@ public class EquationTests
             LeftExpression = leftExpression,
             RightExpressionId = rightExpression.Id,
             RightExpression = rightExpression,
-            Model = _model
+            Model = _model,
+            ModelId = _model.Id,
+            Relation = Relation.Eq
         };
 
         var verified = equation.Verified;

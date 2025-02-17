@@ -1,13 +1,12 @@
 ﻿using LPMaster.Domain.Entities.Base;
+using LPMaster.Domain.Enums;
 using LPMaster.Domain.Exceptions;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LPMaster.Domain.Entities;
 
-public class Equation : IHasId<int>, IDescribable, IVerifiable
+public class Equation : IDescribable, IVerifiable
 {
-    public int Id { get; init; }
-
     public int LeftExpressionId { get; init; }
 
     [ForeignKey(nameof(LeftExpressionId))]
@@ -18,9 +17,9 @@ public class Equation : IHasId<int>, IDescribable, IVerifiable
     [ForeignKey(nameof(RightExpressionId))]
     public required Expression RightExpression { get; init; }
 
-    public int Relation { get; init; }
+    public required Relation Relation { get; init; }
 
-    public int ModelId { get; init; }
+    public required int ModelId { get; init; }
 
     [ForeignKey(nameof(ModelId))]
     public required Model Model { get; init; }
