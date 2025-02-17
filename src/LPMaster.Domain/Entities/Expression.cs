@@ -23,9 +23,9 @@ public class Expression : IHasId<int>, IDescribable, IVerifiable
                     .Distinct()
                     .SingleOrDefault();
             }
-            catch (InvalidOperationException)
+            catch (InvalidOperationException ex)
             {
-                throw new ModelOverlapException("The multis of the expression either have no model or have different models.");
+                throw new ModelOverlapException("The multis of the expression either have no model or have different models.", ex);
             }
         }
     }
