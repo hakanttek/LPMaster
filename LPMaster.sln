@@ -11,6 +11,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{664C48BC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LPMaster.Core.Tests", "tests\LPMaster.Core.Tests\LPMaster.Core.Tests.csproj", "{E81EDE7B-3B34-4F7B-98A2-98100887823A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LPMaster.Solver", "src\LPMaster.Solver\LPMaster.Solver.csproj", "{5C32AC8F-AA93-40C9-B3C1-798A8C903682}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +27,10 @@ Global
 		{E81EDE7B-3B34-4F7B-98A2-98100887823A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E81EDE7B-3B34-4F7B-98A2-98100887823A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E81EDE7B-3B34-4F7B-98A2-98100887823A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C32AC8F-AA93-40C9-B3C1-798A8C903682}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C32AC8F-AA93-40C9-B3C1-798A8C903682}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C32AC8F-AA93-40C9-B3C1-798A8C903682}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C32AC8F-AA93-40C9-B3C1-798A8C903682}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -32,6 +38,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{14DD04C2-A267-4D95-B212-9DE01B8B34C4} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{E81EDE7B-3B34-4F7B-98A2-98100887823A} = {664C48BC-54AF-4F68-9BD9-E823AB5C6C61}
+		{5C32AC8F-AA93-40C9-B3C1-798A8C903682} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D3A09AE5-62A6-4F5A-9FE3-0F7A597338D2}
