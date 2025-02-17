@@ -3,7 +3,7 @@ using LPMaster.Domain.Exceptions;
 
 namespace LPMaster.Domain.Entities;
 
-public class Expression : IUnique<int>, IDescribable, IVerifiable
+public class Expression : IHasId<int>, IDescribable, IVerifiable
 {
     public int Id { get; init; }
 

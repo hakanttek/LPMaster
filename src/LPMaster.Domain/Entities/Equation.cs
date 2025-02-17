@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LPMaster.Domain.Entities;
 
-public class Equation : IUnique<int>, IDescribable, IVerifiable
+public class Equation : IHasId<int>, IDescribable, IVerifiable
 {
     public int Id { get; init; }
 

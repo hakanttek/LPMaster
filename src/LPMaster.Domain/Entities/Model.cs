@@ -2,7 +2,7 @@
 
 namespace LPMaster.Domain.Entities;
 
-public class Model : IUnique<int>, INameable, IDescribable
+public class Model : IHasId<int>, INameable, IDescribable
 {
     public required int Id { get; init; }
 
