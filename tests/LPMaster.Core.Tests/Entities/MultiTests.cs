@@ -66,7 +66,7 @@ public class MultiTests
     }
 
     [Test]
-    [TestCase(true, false, TestName = "DvarIdIsChanged_ShoulNotdBeVerified")]
+    [TestCase(true, false, TestName = "DvarIdIsChanged_ShouldNotBeVerified")]
     [TestCase(false, true, TestName = "DvarIdIsNotChanged_ShouldBeVerified")]
     public void Verified_ReturnsExpectedValue(bool changeDVarId, bool expectedVerified)
     {

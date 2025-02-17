@@ -24,6 +24,8 @@ public static class Fake
                     .Generate(count);
 
     public static Expression EmptyExpression => CreateExpression().First();
+
+    public static Expression ConstantExpression => CreateExpression(CreateMulti(Random.Shared.Next(2, 10))).First();
     #endregion
 
     #region Equation
