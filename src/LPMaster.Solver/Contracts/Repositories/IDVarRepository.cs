@@ -3,6 +3,6 @@ using LPMaster.Solver.Contracts.Repositories.Base;
 
 namespace LPMaster.Solver.Contracts.Repositories;
 
-public interface IDVarRepository : IRepository<DVar>
+public interface IDVarRepository : IRepository<DVar>, INamedEntityRepository<DVar>
 {
 }
