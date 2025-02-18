@@ -1,7 +1,7 @@
-﻿using LPMaster.Application.Model.Dto;
+﻿using LPMaster.Application.Dto.Read;
 using MediatR;
 
-namespace LPMaster.Application.Model.Queries;
+namespace LPMaster.Application.Models.Queries;
 
 public record ReadModelQuery(int? Id = null, int? Name = null) : IRequest<ModelReadDto>;
 

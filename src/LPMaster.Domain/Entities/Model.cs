@@ -1,6 +1,5 @@
 ﻿using LPMaster.Domain.Entities.Base;
 using LPMaster.Domain.Enums;
-using System.Linq;
 
 namespace LPMaster.Domain.Entities;
 

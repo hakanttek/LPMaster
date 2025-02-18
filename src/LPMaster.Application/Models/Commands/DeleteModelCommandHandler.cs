@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace LPMaster.Application.Model.Commands;
+namespace LPMaster.Application.Models.Commands;
 
 public record DeleteModelCommand(int? Id= null, string? Name = null) : IRequest;
 
