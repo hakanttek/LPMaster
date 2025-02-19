@@ -18,4 +18,6 @@ public class Model : IHasId<int>, INameable, IDescribable, IVerifiable
     public string? Description { get; init; }
 
     public bool Verified => ObjectiveFunction?.Verified ?? false && Constraints.All(c => c.Verified);
+
+    public IEnumerable<DVar> DVars { get; init; } = Enumerable.Empty<DVar>();
 }
