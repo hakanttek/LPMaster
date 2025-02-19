@@ -11,7 +11,7 @@ public class DVarTests
     public void Setup()
     {
         var oFunc = new Expression() { Multis = [] };
-        _model = new Model() { Id = -1, Objective = Objective.Minimization, Constraints = [], ObjectiveFunction = oFunc };
+        _model = new Model() { Id = -1, Name = "TestModel",  Objective = Objective.Minimization, Constraints = [], ObjectiveFunction = oFunc };
     }
 
     [Test]
@@ -23,6 +23,7 @@ public class DVarTests
         var dvar = new DVar()
         { 
             ColIndex = 0,
+            Name = "x",
             ModelId = changeModelId ? _model.Id + 1 : _model.Id,
             Model = _model
         };

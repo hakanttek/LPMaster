@@ -2,5 +2,5 @@
 
 public interface INameable
 {
-    public string? Name { get; init; }
+    public string Name { get; init; }
 }

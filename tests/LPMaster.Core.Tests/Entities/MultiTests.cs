@@ -11,8 +11,8 @@ public class MultiTests
     public void Setup()
     {
         var oFunc = new Expression() { Multis = [] };
-        var model = new Model() { Id = 0, Objective = Objective.Minimization, Constraints = [], ObjectiveFunction = oFunc };
-        _dvar = new DVar() { ColIndex = 1, Model = model };
+        var model = new Model() { Id = 0, Name = "TestModel", Objective = Objective.Minimization, Constraints = [], ObjectiveFunction = oFunc };
+        _dvar = new DVar() { ColIndex = 1, Name = "x", Model = model };
     }
 
     [Test]

@@ -13,7 +13,7 @@ public class Model : IHasId<int>, INameable, IDescribable, IVerifiable
 
     public IEnumerable<Equation> Constraints { get; init; } = Enumerable.Empty<Equation>();
 
-    public string? Name { get; init; }
+    public required string Name { get; init; }
 
     public string? Description { get; init; }
 

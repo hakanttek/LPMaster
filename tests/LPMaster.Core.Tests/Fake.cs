@@ -9,6 +9,7 @@ public static class Fake
     #region Model
     public static IEnumerable<Model> CreateModel(int count) => new Faker<Model>()
             .RuleFor(m => m.Id, f => f.IndexGlobal)
+            .RuleFor(m => m.Name, f => "Model" + f.IndexGlobal)
             .RuleFor(m => m.Objective, f => Objective.Minimization)
             .RuleFor(m => m.ObjectiveFunction, (f, e) => e.CreateDVar(f.Random.Int(1, 10)).ToExpression())
             .RuleFor(m => m.Constraints, (f, e) => CreateEquation(f.Random.Int(1, 10), e))
@@ -32,9 +33,9 @@ public static class Fake
     #region Equation
     public static IEnumerable<Equation> CreateEquation(int count, Model model) => new Faker<Equation>()
             .RuleFor(e => e.LeftExpression, (f, e) => model?.CreateDVar(f.Random.Int(1, 10)).ToExpression() ?? EmptyExpression)
-            .RuleFor(e => e.LeftExpressionId, (f, e) => e.LeftExpression.Id)
+            .RuleFor(e => e.LeftExpressionId, (f, e) => e.LeftExpression!.Id)
             .RuleFor(e => e.RightExpression, f => model?.CreateDVar(f.Random.Int(1, 10)).ToExpression() ?? EmptyExpression)
-            .RuleFor(e => e.RightExpressionId, (f, e) => e.RightExpression.Id)
+            .RuleFor(e => e.RightExpressionId, (f, e) => e.RightExpression!.Id)
             .RuleFor(e => e.ModelId, f => model.Id)
             .RuleFor(e => e.Model, f => model)
             .Generate(count);
@@ -52,6 +53,7 @@ public static class Fake
 
     #region DVar
     public static IEnumerable<DVar> CreateDVar(int count, Model model) => new Faker<DVar>()
+        .RuleFor(d => d.Name, f => "dvar" + f.IndexGlobal)
         .RuleFor(d => d.Model, f => model)
         .RuleFor(d => d.ModelId, f => model.Id)
         .RuleFor(d => d.ColIndex, f => f.IndexGlobal)

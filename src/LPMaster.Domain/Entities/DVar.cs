@@ -12,7 +12,7 @@ public class DVar : INameable, IDescribable, IVerifiable
 
     public required int ColIndex { get; init; }
 
-    public string? Name { get; init; }
+    public required string Name { get; init; }
 
     public string? Description { get; init; }
 
