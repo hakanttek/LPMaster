@@ -9,13 +9,13 @@ public class Model : IHasId<int>, INameable, IDescribable, IVerifiable
 
     public required Objective Objective { get; init; }
 
-    public required Expression ObjectiveFunction { get; init; }
+    public Expression? ObjectiveFunction { get; init; }
 
-    public required IEnumerable<Equation> Constraints { get; init; }
+    public IEnumerable<Equation> Constraints { get; init; } = new List<Equation>();
 
     public string? Name { get; init; }
 
     public string? Description { get; init; }
 
-    public bool Verified => ObjectiveFunction.Verified && Constraints.All(c => c.Verified);
+    public bool Verified => ObjectiveFunction?.Verified ?? false && Constraints.All(c => c.Verified);
 }
