@@ -7,15 +7,15 @@ namespace LPMaster.Domain.Entities;
 
 public class Equation : IDescribable, IVerifiable
 {
-    public int LeftExpressionId { get; init; }
+    public int? LeftExpressionId { get; init; }
 
     [ForeignKey(nameof(LeftExpressionId))]
-    public required Expression LeftExpression { get; init; }
+    public Expression? LeftExpression { get; init; }
 
-    public int RightExpressionId { get; init; }
+    public int? RightExpressionId { get; init; }
 
     [ForeignKey(nameof(RightExpressionId))]
-    public required Expression RightExpression { get; init; }
+    public Expression? RightExpression { get; init; }
 
     public required Relation Relation { get; init; }
 
@@ -34,9 +34,9 @@ public class Equation : IDescribable, IVerifiable
             {
                 return
                     (Model.Id == ModelId) &&
-                    (LeftExpression.ModelId is null || LeftExpression.ModelId == ModelId) &&
-                    (RightExpression.ModelId is null || RightExpression.ModelId == ModelId) &&
-                    (LeftExpression.ModelId is not null || RightExpression.ModelId is not null);
+                    (LeftExpression?.ModelId is null || LeftExpression.ModelId == ModelId) &&
+                    (RightExpression?.ModelId is null || RightExpression.ModelId == ModelId) &&
+                    (LeftExpression?.ModelId is not null || RightExpression?.ModelId is not null);
             }
             catch (ModelOverlapException)
             {
