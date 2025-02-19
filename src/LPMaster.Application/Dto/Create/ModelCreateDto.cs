@@ -9,7 +9,7 @@ public record ModelCreateDto
 
     public ExpressionCreateDto ObjectiveFunction { get; init; } = new ExpressionCreateDto();
 
-    protected internal List<Equation> _constraints = new();
+    protected internal List<Equation> _constraints = new List<Equation>();
 
     public IEnumerable<Equation> Constraints { get => _constraints; init => _constraints = value.ToList(); }
 
