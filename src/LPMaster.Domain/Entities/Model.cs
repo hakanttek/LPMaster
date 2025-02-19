@@ -11,7 +11,7 @@ public class Model : IHasId<int>, INameable, IDescribable, IVerifiable
 
     public Expression? ObjectiveFunction { get; init; }
 
-    public IEnumerable<Equation> Constraints { get; init; } = new List<Equation>();
+    public IEnumerable<Equation> Constraints { get; init; } = Enumerable.Empty<Equation>();
 
     public string? Name { get; init; }
 

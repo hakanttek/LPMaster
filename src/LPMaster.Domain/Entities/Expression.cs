@@ -7,7 +7,7 @@ public class Expression : IHasId<int>, IDescribable, IVerifiable
 {
     public int Id { get; init; }
 
-    public required IEnumerable<Multi> Multis { get; init; }
+    public  IEnumerable<Multi> Multis { get; init; } = Enumerable.Empty<Multi>();
 
     public string? Description { get; init; }
 
