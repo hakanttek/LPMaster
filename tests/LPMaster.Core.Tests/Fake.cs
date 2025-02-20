@@ -1,6 +1,11 @@
 ﻿using Bogus;
 using LPMaster.Domain.Entities;
 using LPMaster.Domain.Enums;
+using Microsoft.Extensions.DependencyInjection;
+using LPMaster.Application;
+using Microsoft.EntityFrameworkCore;
+using LPMaster.Application.Contracts.Repositories;
+using Moq;
 
 namespace LPMaster.Core.Tests;
 
@@ -71,6 +76,36 @@ public static class Fake
 
     public static DVar CreateDVar(Model model) => CreateDVar(1, model).First();
     #endregion
+
+    private static readonly Lazy<IServiceProvider> _lazyServiceProvider = new(() =>
+    {
+        var mockModelRepo = new Mock<IModelRepository>();
+        var mockEquationsRepo = new Mock<IEquationRepository>();
+        var mockExpressionRepo = new Mock<IExpressionRepository>();
+        var mockDVarsRepo = new Mock<IDVarRepository>();
+
+        var services = new ServiceCollection()
+            .AddLPMasterApplication()
+            .AddScoped(sp => mockModelRepo.Object)
+            .AddScoped(sp => mockEquationsRepo.Object)
+            .AddScoped(sp => mockExpressionRepo.Object)
+            .AddScoped(sp => mockDVarsRepo.Object);
+
+        return services.BuildServiceProvider();
+    });
+
+    public static IServiceProvider Provider => _lazyServiceProvider.Value;
+}
+
+class FakeDbContext(DbContextOptions<FakeDbContext> options) : DbContext(options)
+{
+    DbSet<Model> Models { get; set; }
+
+    DbSet<Equation> Equations { get; set; }
+
+    DbSet<Expression> Expressions { get; set; }
+
+    DbSet<Multi> Multis { get; set; }
 }
 
 public static class FakeExtensions
@@ -100,3 +135,4 @@ public static class FakeExtensions
     public static Expression ToExpression(this IEnumerable<Multi> multis) => Fake.CreateExpression(multis.First(d => d.Model is not null).Model!, multis, 1).First();
     #endregion
 }
+
