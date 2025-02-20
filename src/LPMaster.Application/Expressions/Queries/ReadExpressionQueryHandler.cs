@@ -3,11 +3,11 @@ using MediatR;
 
 namespace LPMaster.Application.Expressions.Queries;
 
-public record ReadExpressionQuery(int? Id = null, int? ModelId = null) : IRequest<ExpressionReadDto>;
+public record ReadExpressionQuery(int? ModelId = null, string? ModelName = null) : IRequest<IEnumerable<ExpressionReadDto>>;
 
-public class ReadExpressionQueryHandler : IRequestHandler<ReadExpressionQuery, ExpressionReadDto>
+public class ReadExpressionQueryHandler : IRequestHandler<ReadExpressionQuery, IEnumerable<ExpressionReadDto>>
 {
-    public Task<ExpressionReadDto> Handle(ReadExpressionQuery request, CancellationToken cancellationToken)
+    public Task<IEnumerable<ExpressionReadDto>> Handle(ReadExpressionQuery request, CancellationToken cancellationToken)
     {
         throw new NotImplementedException();
     }

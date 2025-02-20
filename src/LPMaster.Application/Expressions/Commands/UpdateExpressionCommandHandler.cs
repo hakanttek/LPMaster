@@ -3,11 +3,11 @@ using MediatR;
 
 namespace LPMaster.Application.Expressions.Commands;
 
-public record UpdateModelCommand(ModelUpdateDto Model, int? Id = null, string? Name = null) : IRequest;
+public record UpdateExpressionCommand(int Id) : ExpressionUpdateDto, IRequest;
 
-public class UpdateExpressionCommandHandler : IRequestHandler<UpdateModelCommand>
+public class UpdateExpressionCommandHandler : IRequestHandler<UpdateExpressionCommand>
 {
-    public Task Handle(UpdateModelCommand request, CancellationToken cancellationToken)
+    public Task Handle(UpdateExpressionCommand request, CancellationToken cancellationToken)
     {
         throw new NotImplementedException();
     }

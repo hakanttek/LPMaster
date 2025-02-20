@@ -6,5 +6,5 @@ public record ExpressionCreateDto()
 
     public string? Description { get; init; }
 
-    public int ModelId { get; internal set; } = -1;
+    public int ModelId { get; internal set; }
 }

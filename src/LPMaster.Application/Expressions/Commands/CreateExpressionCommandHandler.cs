@@ -3,7 +3,7 @@ using MediatR;
 
 namespace LPMaster.Application.Expressions.Commands;
 
-public record CreateExpressionCommand(ExpressionCreateDto Model) : IRequest<int>;
+public record CreateExpressionCommand() : ExpressionCreateDto, IRequest<int>;
 
 public class CreateExpressionCommandHandler : IRequestHandler<CreateExpressionCommand, int>
 {

@@ -2,7 +2,7 @@
 
 namespace LPMaster.Application.Expressions.Commands;
 
-public record DeleteExpressionsCommand(int? Id= null, string? Name = null) : IRequest;
+public record DeleteExpressionsCommand(int Id) : IRequest;
 
 public class DeleteExpressionCommandHandler : IRequestHandler<DeleteExpressionsCommand>
 {
