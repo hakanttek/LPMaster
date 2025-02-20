@@ -1,5 +1,4 @@
-﻿using LPMaster.Domain.Entities;
-using LPMaster.Domain.Enums;
+﻿using LPMaster.Domain.Enums;
 
 namespace LPMaster.Application.Dto.Create;
 

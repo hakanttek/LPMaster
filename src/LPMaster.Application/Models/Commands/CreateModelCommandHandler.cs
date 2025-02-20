@@ -3,7 +3,7 @@ using MediatR;
 
 namespace LPMaster.Application.Models.Commands;
 
-public record CreateModelCommand(IEnumerable<DVarCreateDto> DVars, ModelCreateDto Model) : IRequest<int>;
+public record CreateModelCommand(ModelCreateDto Model) : IRequest<int>;
 
 public class CreateModelCommandHandler : IRequestHandler<CreateModelCommand, int>
 {
