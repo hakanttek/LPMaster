@@ -16,5 +16,5 @@ public class Expression : IHasId<int>, IDescribable, IVerifiable
     [ForeignKey(nameof(ModelId))]
     public required Model Model { get; init; }
 
-    public bool Verified => ModelId == Model.Id && Multis.All(m => m.Model.Id == ModelId);
+    public bool Verified => ModelId == Model.Id && Multis.Any() && Multis.All(m => m.Model.Id == ModelId);
 }
