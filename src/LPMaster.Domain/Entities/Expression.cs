@@ -1,5 +1,5 @@
 ﻿using LPMaster.Domain.Entities.Base;
-using LPMaster.Domain.Exceptions;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LPMaster.Domain.Entities;
 
@@ -11,30 +11,10 @@ public class Expression : IHasId<int>, IDescribable, IVerifiable
 
     public string? Description { get; init; }
 
-    public Model? Model
-    {
-        get
-        {
-            try
-            {
-                return Multis
-                    .Where(multi => multi.ModelId is not null)
-                    .Select(multi => multi.Model)
-                    .Distinct()
-                    .SingleOrDefault();
-            }
-            catch (InvalidOperationException ex)
-            {
-                throw new ModelOverlapException("The multis of the expression either have no model or have different models.", ex);
-            }
-        }
-    }
+    public int ModelId { get; init; }
 
-    public int? ModelId => Model?.Id;
+    [ForeignKey(nameof(ModelId))]
+    public required Model Model { get; init; }
 
-    public bool Verified => Multis
-                    .Where(multi => multi.ModelId is not null)
-                    .Select(multi => multi.Model)
-                    .Distinct()
-                    .Count() == 1;    
+    public bool Verified => ModelId == Model.Id && Multis.All(m => m.Model.Id == ModelId);
 }

@@ -1,5 +1,4 @@
 ﻿using LPMaster.Domain.Entities.Base;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LPMaster.Domain.Entities;
 
