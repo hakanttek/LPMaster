@@ -6,7 +6,7 @@ namespace LPMaster.Application.Dto;
 public class DtoExtensions
 {
     #region ModelCreateDto
-    public static TModel SubjectTo<TModel>(TModel model, params Equation[] equations) where TModel : ModelCreateDto
+    public static TModel SubjectTo<TModel>(TModel model, params EquationCreateDto[] equations) where TModel : ModelCreateDto
     {
         model._constraints.AddRange(equations);
         return model;

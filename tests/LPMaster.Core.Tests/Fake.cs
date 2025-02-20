@@ -19,22 +19,23 @@ public static class Fake
     #endregion
 
     #region Expression
-    public static IEnumerable<Expression> CreateExpression(IEnumerable<Multi>? multis = null, int count = 1)
+    public static IEnumerable<Expression> CreateExpression(Model model, IEnumerable<Multi>? multis = null, int count = 1)
         => new Faker<Expression>()
                     .RuleFor(e => e.Id, f => f.IndexGlobal)
                     .RuleFor(e => e.Multis, f => multis ?? [])
+                    .RuleFor(e => e.Model, f => model)
                     .Generate(count);
 
-    public static Expression EmptyExpression => CreateExpression().First();
+    public static Expression CreateEmptyExpression(Model model) => CreateExpression(model).First();
 
-    public static Expression ConstantExpression => CreateExpression(CreateMulti(Random.Shared.Next(2, 10))).First();
+    public static Expression CreateConstantExpression(Model model) => CreateExpression(model, CreateMulti(Random.Shared.Next(2, 10))).First();
     #endregion
 
     #region Equation
     public static IEnumerable<Equation> CreateEquation(int count, Model model) => new Faker<Equation>()
-            .RuleFor(e => e.LeftExpression, (f, e) => model?.CreateDVar(f.Random.Int(1, 10)).ToExpression() ?? EmptyExpression)
+            .RuleFor(e => e.LeftExpression, (f, e) => model?.CreateDVar(f.Random.Int(1, 10)).ToExpression() ?? CreateEmptyExpression(model!))
             .RuleFor(e => e.LeftExpressionId, (f, e) => e.LeftExpression!.Id)
-            .RuleFor(e => e.RightExpression, f => model?.CreateDVar(f.Random.Int(1, 10)).ToExpression() ?? EmptyExpression)
+            .RuleFor(e => e.RightExpression, f => model?.CreateDVar(f.Random.Int(1, 10)).ToExpression() ?? CreateEmptyExpression(model!))
             .RuleFor(e => e.RightExpressionId, (f, e) => e.RightExpression!.Id)
             .RuleFor(e => e.ModelId, f => model.Id)
             .RuleFor(e => e.Model, f => model)
@@ -80,10 +81,10 @@ public static class FakeExtensions
     #endregion
 
     #region Expression
-    public static Expression CreateExpression(this Model model) => Fake.CreateExpression(model.CreateMulti(10), 1).First();
+    public static Expression CreateExpression(this Model model) => Fake.CreateExpression(model, model.CreateMulti(10), 1).First();
 
-    public static Expression ToExpression(this IEnumerable<DVar> dvars) => Fake.CreateExpression(dvars.Select(Fake.CreateMulti), 1).First();
+    public static Expression ToExpression(this IEnumerable<DVar> dvars) => Fake.CreateExpression(dvars.First().Model, dvars.Select(Fake.CreateMulti), 1).First();
 
-    public static Expression ToExpression(this IEnumerable<Multi> multis) => Fake.CreateExpression(multis, 1).First();
+    public static Expression ToExpression(this IEnumerable<Multi> multis) => Fake.CreateExpression(multis.First(d => d.Model is not null).Model!, multis, 1).First();
     #endregion
 }

@@ -1,10 +1,11 @@
 ﻿using LPMaster.Domain.Entities.Base;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LPMaster.Domain.Entities;
 
 public class Multi : IVerifiable
 {
-    public double Coef { get; init; }
+    public required double Coef { get; init; }
     
     public int? ColIndex { get; init; }
 
@@ -12,9 +13,17 @@ public class Multi : IVerifiable
 
     public bool IsConstant => DVar is null;
 
-    public int? ModelId => DVar?.ModelId;
+    public int ModelId => Expression.ModelId;
 
-    public Model? Model => DVar?.Model;
+    public Model Model => Expression.Model;
 
-    public bool Verified => ColIndex == DVar?.ColIndex;
+    public required int ExpressionId { get; init; }
+
+    [ForeignKey(nameof(ExpressionId))]
+    public required Expression Expression { get; init; }
+
+    public bool Verified
+        => Expression.Id == ExpressionId
+        && (DVar == null || Expression.ModelId == DVar.ModelId)
+        &&  ColIndex == DVar?.ColIndex;
 }

@@ -10,8 +10,7 @@ public class DVarTests
     [SetUp]
     public void Setup()
     {
-        var oFunc = new Expression() { Multis = [] };
-        _model = new Model() { Id = -1, Name = "TestModel",  Objective = Objective.Minimization, Constraints = [], ObjectiveFunction = oFunc };
+        _model = Fake.Model;
     }
 
     [Test]

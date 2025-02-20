@@ -28,7 +28,7 @@ public class EquationTests
             RightExpression = rightExpression,
             Model = _model,
             ModelId = _model.Id,
-            Relation = Domain.Enums.Relation.Eq
+            Relation = Relation.Eq
         };
 
         var verified = equation.Verified;
@@ -42,8 +42,8 @@ public class EquationTests
     [TestCase(false, true, true, TestName = "CreateOnlyRightExpressionAsConstant_ShoulNotdBeVerified")]
     public void Verified_WhenUsingConstantExpressions_ShouldReturnExpected(bool constantLeftExpression, bool constantRightExpression, bool expectedVerified)
     {
-        var leftExpression = constantLeftExpression ? Fake.ConstantExpression : _model.CreateExpression();
-        var rightExpression = constantRightExpression ? Fake.ConstantExpression : _model.CreateExpression();
+        var leftExpression = constantLeftExpression ? Fake.CreateConstantExpression(_model) : _model.CreateExpression();
+        var rightExpression = constantRightExpression ? Fake.CreateConstantExpression(_model) : _model.CreateExpression();
         var equation = new Equation()
         {
             LeftExpressionId = leftExpression.Id,
