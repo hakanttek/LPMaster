@@ -13,7 +13,7 @@ public class EquationTests
     }
 
     [Test]
-    [TestCase(false, false, true, TestName = "CreateAllFromOneModel_ShoulNotdBeVerified")]
+    [TestCase(false, false, true, TestName = "CreateAllFromOneModel_ShouldBeVerified")]
     [TestCase(true, false, false, TestName = "CreateLeftExpressionByAnotherModel_ShoulNotdBeVerified")]
     [TestCase(false, true, false, TestName = "CreateRightExpressionByAnotherModel_ShoulNotdBeVerified")]
     public void Verified_ShouldReturnExpected(bool leftByAnotherModel, bool rightByAnotherModel, bool expectedVerified)
