@@ -6,6 +6,7 @@ using LPMaster.Application;
 using Microsoft.EntityFrameworkCore;
 using LPMaster.Application.Contracts.Repositories;
 using Moq;
+using LPMaster.Application.Contracts.Repositories.Base;
 
 namespace LPMaster.Core.Tests;
 
@@ -79,33 +80,23 @@ public static class Fake
 
     private static readonly Lazy<IServiceProvider> _lazyServiceProvider = new(() =>
     {
-        var mockModelRepo = new Mock<IModelRepository>();
-        var mockEquationsRepo = new Mock<IEquationRepository>();
-        var mockExpressionRepo = new Mock<IExpressionRepository>();
-        var mockDVarsRepo = new Mock<IDVarRepository>();
+        static Mock<IModelRepository> CreateMockModelRepo(DbContext context) => new Mock<IModelRepository>().SetupMockRepo<IModelRepository, Model>(context);
+        static Mock<IEquationRepository> CreateMockEquationRepo(DbContext context) => new Mock<IEquationRepository>().SetupMockRepo<IEquationRepository, Equation>(context);
+        static Mock<IExpressionRepository> CreateMockExpressionRepo(DbContext context) => new Mock<IExpressionRepository>().SetupMockRepo<IExpressionRepository, Expression>(context);
+        static Mock<IDVarRepository> CreateMockDvarRepo(DbContext context) => new Mock<IDVarRepository>().SetupMockRepo<IDVarRepository, DVar>(context);
 
         var services = new ServiceCollection()
             .AddLPMasterApplication()
-            .AddScoped(sp => mockModelRepo.Object)
-            .AddScoped(sp => mockEquationsRepo.Object)
-            .AddScoped(sp => mockExpressionRepo.Object)
-            .AddScoped(sp => mockDVarsRepo.Object);
+            .AddDbContext<DbContext>(opt => opt.UseInMemoryDatabase("DefaultFakeDB"))
+            .AddScoped(sp => CreateMockModelRepo(sp.GetRequiredService<DbContext>()).Object)
+            .AddScoped(sp => CreateMockEquationRepo(sp.GetRequiredService<DbContext>()).Object)
+            .AddScoped(sp => CreateMockExpressionRepo(sp.GetRequiredService<DbContext>()).Object)
+            .AddScoped(sp => CreateMockDvarRepo(sp.GetRequiredService<DbContext>()).Object);
 
         return services.BuildServiceProvider();
     });
 
     public static IServiceProvider Provider => _lazyServiceProvider.Value;
-}
-
-class FakeDbContext(DbContextOptions<FakeDbContext> options) : DbContext(options)
-{
-    DbSet<Model> Models { get; set; }
-
-    DbSet<Equation> Equations { get; set; }
-
-    DbSet<Expression> Expressions { get; set; }
-
-    DbSet<Multi> Multis { get; set; }
 }
 
 public static class FakeExtensions
@@ -136,3 +127,51 @@ public static class FakeExtensions
     #endregion
 }
 
+public static class MockRepositoryExtensions
+{
+    public static Mock<TRepository> SetupMockRepo<TRepository, TEntity>(this Mock<TRepository> mock, DbContext context) where TRepository : class, IRepository<TEntity> where TEntity : class
+    {
+        DbSet<TEntity> entities = context.Set<TEntity>();
+        
+        #region Create
+        mock.Setup(repo => repo.CreateAsync(It.IsAny<TEntity>())).Returns<TEntity>(async entity =>
+        {
+            await entities.AddAsync(entity);
+            await context.SaveChangesAsync();
+        });
+        mock.Setup(repo => repo.CreateAsync(It.IsAny<IEnumerable<TEntity>>())).Returns<IEnumerable<TEntity>>(async entityList =>
+        {
+            await entities.AddRangeAsync(entityList);
+            await context.SaveChangesAsync();
+        });
+        #endregion
+        #region Read
+        mock.Setup(repo => repo.ReadAllAsync()).Returns(async () => await entities.AsNoTracking().ToListAsync());
+        #endregion
+        #region Update
+        mock.Setup(repo => repo.UpdateAsync(It.IsAny<TEntity>())).Returns<TEntity>(async entity =>
+        {
+            entities.Update(entity);
+            await context.SaveChangesAsync();
+        });
+        mock.Setup(repo => repo.UpdateAsync(It.IsAny<IEnumerable<TEntity>>())).Returns<IEnumerable<TEntity>>(async entityList =>
+        {
+            entities.UpdateRange(entityList);
+            await context.SaveChangesAsync();
+        });
+        #endregion
+        #region Delete
+        mock.Setup(repo => repo.DeleteAsync(It.IsAny<TEntity>())).Returns<TEntity>(async entity =>
+        {
+            entities.Remove(entity);
+            await context.SaveChangesAsync();
+        });
+        mock.Setup(repo => repo.DeleteAsync(It.IsAny<IEnumerable<TEntity>>())).Returns<IEnumerable<TEntity>>(async entityList =>
+        {
+            entities.RemoveRange(entityList);
+            await context.SaveChangesAsync();
+        });
+        #endregion
+        return mock;
+    }
+}
