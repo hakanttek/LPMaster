@@ -13,7 +13,7 @@ namespace LPMaster.Core.Tests;
 public static class Fake
 {
     #region Model
-    public static IEnumerable<Model> CreateModel(int count) => new Faker<Model>()
+    public static IEnumerable<LinModel> CreateModel(int count) => new Faker<LinModel>()
             .RuleFor(m => m.Id, f => f.IndexGlobal)
             .RuleFor(m => m.Name, f => "Model" + f.IndexGlobal)
             .RuleFor(m => m.Objective, f => Objective.Minimization)
@@ -21,12 +21,12 @@ public static class Fake
             .RuleFor(m => m.Constraints, (f, e) => CreateEquation(f.Random.Int(1, 10), e))
             .Generate(count);
 
-    public static Model Model => CreateModel(1).First();
+    public static LinModel Model => CreateModel(1).First();
     #endregion
 
     #region Expression
-    public static IEnumerable<Expression> CreateExpression(Model model, IEnumerable<Multi>? multis = null, int numberOfMulti = 10, int count = 1)
-        => new Faker<Expression>()
+    public static IEnumerable<LinExpression> CreateExpression(LinModel model, IEnumerable<Multi>? multis = null, int numberOfMulti = 10, int count = 1)
+        => new Faker<LinExpression>()
                     .RuleFor(e => e.Id, f => f.IndexGlobal)
                     .RuleFor(e => e.Model, f => model)
                     .RuleFor(e => e.ModelId, f => model.Id)
@@ -39,13 +39,13 @@ public static class Fake
                     })
                     .Generate(count);
 
-    public static Expression CreateEmptyExpression(Model model) => CreateExpression(model).First();
+    public static LinExpression CreateEmptyExpression(LinModel model) => CreateExpression(model).First();
 
-    public static Expression CreateConstantExpression(Model model) => CreateExpression(model).First();
+    public static LinExpression CreateConstantExpression(LinModel model) => CreateExpression(model).First();
     #endregion
 
     #region Equation
-    public static IEnumerable<Equation> CreateEquation(int count, Model model) => new Faker<Equation>()
+    public static IEnumerable<LinEquation> CreateEquation(int count, LinModel model) => new Faker<LinEquation>()
             .RuleFor(e => e.LeftExpression, (f, e) => model.CreateExpression())
             .RuleFor(e => e.LeftExpressionId, (f, e) => e.LeftExpression!.Id)
             .RuleFor(e => e.RightExpression, f => model.CreateExpression())
@@ -56,7 +56,7 @@ public static class Fake
     #endregion
 
     #region Multi
-    public static IEnumerable<Multi> CreateMulti(int count, Expression expression, DVar? dVar = null) => new Faker<Multi>()
+    public static IEnumerable<Multi> CreateMulti(int count, LinExpression expression, DVar? dVar = null) => new Faker<Multi>()
         .RuleFor(m => m.Coef, f => f.Random.Double(1, 100))
         .RuleFor(m => m.ColIndex, f => dVar?.ColIndex ?? f.Random.Int(1, 10))
         .RuleFor(m => m.Expression, f => expression)
@@ -64,26 +64,26 @@ public static class Fake
         .RuleFor(m => m.DVar, f => dVar)
         .Generate(count);
 
-    public static Multi CreateMulti(Expression expression, DVar? dVar = null) => CreateMulti(1, expression, dVar).First();
+    public static Multi CreateMulti(LinExpression expression, DVar? dVar = null) => CreateMulti(1, expression, dVar).First();
     #endregion
 
     #region DVar
-    public static IEnumerable<DVar> CreateDVar(int count, Model model) => new Faker<DVar>()
+    public static IEnumerable<DVar> CreateDVar(int count, LinModel model) => new Faker<DVar>()
         .RuleFor(d => d.Name, f => "dvar" + f.IndexGlobal)
         .RuleFor(d => d.Model, f => model)
         .RuleFor(d => d.ModelId, f => model.Id)
         .RuleFor(d => d.ColIndex, f => f.IndexGlobal)
         .Generate(count);
 
-    public static DVar CreateDVar(Model model) => CreateDVar(1, model).First();
+    public static DVar CreateDVar(LinModel model) => CreateDVar(1, model).First();
     #endregion
 
     #region Dependency Injection
     private static readonly Lazy<IServiceProvider> _lazyServiceProvider = new(() =>
     {
-        static Mock<IModelRepository> CreateMockModelRepo(DbContext context) => new Mock<IModelRepository>().SetupMockRepo<IModelRepository, Model>(context);
-        static Mock<IEquationRepository> CreateMockEquationRepo(DbContext context) => new Mock<IEquationRepository>().SetupMockRepo<IEquationRepository, Equation>(context);
-        static Mock<IExpressionRepository> CreateMockExpressionRepo(DbContext context) => new Mock<IExpressionRepository>().SetupMockRepo<IExpressionRepository, Expression>(context);
+        static Mock<IModelRepository> CreateMockModelRepo(DbContext context) => new Mock<IModelRepository>().SetupMockRepo<IModelRepository, LinModel>(context);
+        static Mock<IEquationRepository> CreateMockEquationRepo(DbContext context) => new Mock<IEquationRepository>().SetupMockRepo<IEquationRepository, LinEquation>(context);
+        static Mock<IExpressionRepository> CreateMockExpressionRepo(DbContext context) => new Mock<IExpressionRepository>().SetupMockRepo<IExpressionRepository, LinExpression>(context);
         static Mock<IDVarRepository> CreateMockDvarRepo(DbContext context) => new Mock<IDVarRepository>().SetupMockRepo<IDVarRepository, DVar>(context);
 
         var services = new ServiceCollection()
@@ -104,28 +104,28 @@ public static class Fake
 public static class FakeExtensions
 {
     #region DVar
-    public static IEnumerable<DVar> CreateDVar(this Model model, int count) => Fake.CreateDVar(count, model);
+    public static IEnumerable<DVar> CreateDVar(this LinModel model, int count) => Fake.CreateDVar(count, model);
 
-    public static DVar CreateDVar(this Model model) => Fake.CreateDVar(model);
+    public static DVar CreateDVar(this LinModel model) => Fake.CreateDVar(model);
     #endregion
 
     #region Multi
-    public static Multi ToMulti(this DVar dvar, Expression expression) => Fake.CreateMulti(expression, dvar);
+    public static Multi ToMulti(this DVar dvar, LinExpression expression) => Fake.CreateMulti(expression, dvar);
 
-    public static IEnumerable<Multi> CreateMulti(this Model model, int count, Expression expression)
+    public static IEnumerable<Multi> CreateMulti(this LinModel model, int count, LinExpression expression)
         => Fake.CreateDVar(count, model).Select(dvar => Fake.CreateMulti(expression, dvar));
 
-    public static Multi CreateMulti(this Expression expression) => Fake.CreateMulti(expression);
+    public static Multi CreateMulti(this LinExpression expression) => Fake.CreateMulti(expression);
     #endregion
 
     #region Expression
-    public static Expression CreateExpression(this Model model)
+    public static LinExpression CreateExpression(this LinModel model)
         => Fake.CreateExpression(model, multis: null, numberOfMulti: Random.Shared.Next(3, 10), 1).First();
 
-    public static Expression ToExpression(this IEnumerable<DVar> dvars, Expression expression)
+    public static LinExpression ToExpression(this IEnumerable<DVar> dvars, LinExpression expression)
         => Fake.CreateExpression(dvars.First().Model, dvars.Select(dvar => Fake.CreateMulti(expression, dvar)), 1).First();
 
-    public static Expression ToExpression(this IEnumerable<Multi> multis) => Fake.CreateExpression(multis.First(d => d.Model is not null).Model!, multis, 1).First();
+    public static LinExpression ToExpression(this IEnumerable<Multi> multis) => Fake.CreateExpression(multis.First(d => d.Model is not null).Model!, multis, 1).First();
     #endregion
 }
 

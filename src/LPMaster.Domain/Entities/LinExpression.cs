@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LPMaster.Domain.Entities;
 
-public class Expression : IHasId<int>, IDescribable, IVerifiable
+public class LinExpression : IHasId<int>, IDescribable, IVerifiable
 {
     public required int Id { get; init; }
 
@@ -14,7 +14,7 @@ public class Expression : IHasId<int>, IDescribable, IVerifiable
     public int ModelId { get; init; }
 
     [ForeignKey(nameof(ModelId))]
-    public required Model Model { get; init; }
+    public required LinModel Model { get; init; }
 
     public bool Verified => ModelId == Model.Id && Multis.Any() && Multis.All(m => m.Model.Id == ModelId);
 }

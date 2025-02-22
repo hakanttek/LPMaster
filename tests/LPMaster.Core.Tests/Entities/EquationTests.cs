@@ -5,7 +5,7 @@ namespace LPMaster.Core.Tests.Entities;
 
 public class EquationTests
 {
-    Model _model;
+    LinModel _model;
     [SetUp]
     public void Setup()
     {
@@ -20,7 +20,7 @@ public class EquationTests
     {
         var leftExpression = (leftByAnotherModel ? Fake.Model : _model).CreateExpression();
         var rightExpression = (rightByAnotherModel ? Fake.Model : _model).CreateExpression();
-        var equation = new Equation()
+        var equation = new LinEquation()
         {
             LeftExpressionId = leftExpression.Id,
             LeftExpression = leftExpression,
@@ -44,7 +44,7 @@ public class EquationTests
     {
         var leftExpression = constantLeftExpression ? Fake.CreateConstantExpression(_model) : _model.CreateExpression();
         var rightExpression = constantRightExpression ? Fake.CreateConstantExpression(_model) : _model.CreateExpression();
-        var equation = new Equation()
+        var equation = new LinEquation()
         {
             LeftExpressionId = leftExpression.Id,
             LeftExpression = leftExpression,

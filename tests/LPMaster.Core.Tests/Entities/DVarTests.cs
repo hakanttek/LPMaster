@@ -5,7 +5,7 @@ namespace LPMaster.Core.Tests.Entities;
 
 public class DVarTests
 {
-    private Model _model;
+    private LinModel _model;
 
     [SetUp]
     public void Setup()

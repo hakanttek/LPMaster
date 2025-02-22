@@ -5,24 +5,24 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LPMaster.Domain.Entities;
 
-public class Equation : IDescribable, IVerifiable
+public class LinEquation : IDescribable, IVerifiable
 {
     public int? LeftExpressionId { get; init; }
 
     [ForeignKey(nameof(LeftExpressionId))]
-    public Expression? LeftExpression { get; init; }
+    public LinExpression? LeftExpression { get; init; }
 
     public int? RightExpressionId { get; init; }
 
     [ForeignKey(nameof(RightExpressionId))]
-    public Expression? RightExpression { get; init; }
+    public LinExpression? RightExpression { get; init; }
 
     public required Relation Relation { get; init; }
 
     public required int ModelId { get; init; }
 
     [ForeignKey(nameof(ModelId))]
-    public required Model Model { get; init; }
+    public required LinModel Model { get; init; }
 
     public string? Description { get; init; }
 

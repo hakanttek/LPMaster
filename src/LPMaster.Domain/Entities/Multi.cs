@@ -15,12 +15,12 @@ public class Multi : IVerifiable
 
     public int ModelId => Expression.ModelId;
 
-    public Model Model => Expression.Model;
+    public LinModel Model => Expression.Model;
 
     public required int ExpressionId { get; init; }
 
     [ForeignKey(nameof(ExpressionId))]
-    public required Expression Expression { get; init; }
+    public required LinExpression Expression { get; init; }
 
     public bool Verified
         => Expression.Id == ExpressionId

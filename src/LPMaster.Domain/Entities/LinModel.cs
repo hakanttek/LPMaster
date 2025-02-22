@@ -3,15 +3,15 @@ using LPMaster.Domain.Enums;
 
 namespace LPMaster.Domain.Entities;
 
-public class Model : IHasId<int>, INameable, IDescribable, IVerifiable
+public class LinModel : IHasId<int>, INameable, IDescribable, IVerifiable
 {
     public required int Id { get; init; }
 
     public required Objective Objective { get; init; }
 
-    public Expression? ObjectiveFunction { get; init; }
+    public LinExpression? ObjectiveFunction { get; init; }
 
-    public IEnumerable<Equation> Constraints { get; init; } = Enumerable.Empty<Equation>();
+    public IEnumerable<LinEquation> Constraints { get; init; } = Enumerable.Empty<LinEquation>();
 
     public required string Name { get; init; }
 

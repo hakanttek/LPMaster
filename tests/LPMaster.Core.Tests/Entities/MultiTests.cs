@@ -7,7 +7,7 @@ namespace LPMaster.Core.Tests.Entities;
 public class MultiTests
 {
     private DVar _dvar;
-    private Model _model;
+    private LinModel _model;
 
     [SetUp]
     public void Setup()

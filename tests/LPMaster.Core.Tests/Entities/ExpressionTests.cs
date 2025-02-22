@@ -4,7 +4,7 @@ namespace LPMaster.Core.Tests.Entities;
 
 public class ExpressionTests
 {
-    private Model _model;
+    private LinModel _model;
 
     [SetUp]
     public void Setup()

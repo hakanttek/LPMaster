@@ -9,9 +9,9 @@ public record ModelUpdateDto
 
     public required Objective Objective { get; set; }
 
-    public Expression? ObjectiveFunction { get; set; }
+    public LinExpression? ObjectiveFunction { get; set; }
 
-    public IEnumerable<Equation> Constraints { get; init; } = Enumerable.Empty<Equation>();
+    public IEnumerable<LinEquation> Constraints { get; init; } = Enumerable.Empty<LinEquation>();
 
     public string? Name { get; set; }
 

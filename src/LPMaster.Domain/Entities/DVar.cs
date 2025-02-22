@@ -8,7 +8,7 @@ public class DVar : INameable, IDescribable, IVerifiable
     public int ModelId { get; init; }
 
     [ForeignKey(nameof(ModelId))]
-    public required Model Model { get; init; }
+    public required LinModel Model { get; init; }
 
     public required int ColIndex { get; init; }
 

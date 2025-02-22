@@ -9,7 +9,7 @@ public class DtoProfile : Profile
 {
     public DtoProfile()
     {
-        CreateMap<Model, ModelReadDto>();
-        CreateMap<ModelUpdateDto, Model>();
+        CreateMap<LinModel, ModelReadDto>();
+        CreateMap<ModelUpdateDto, LinModel>();
     }
 }
