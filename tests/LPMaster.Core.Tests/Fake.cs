@@ -78,6 +78,7 @@ public static class Fake
     public static DVar CreateDVar(Model model) => CreateDVar(1, model).First();
     #endregion
 
+    #region Dependency Injection
     private static readonly Lazy<IServiceProvider> _lazyServiceProvider = new(() =>
     {
         static Mock<IModelRepository> CreateMockModelRepo(DbContext context) => new Mock<IModelRepository>().SetupMockRepo<IModelRepository, Model>(context);
@@ -97,6 +98,7 @@ public static class Fake
     });
 
     public static IServiceProvider Provider => _lazyServiceProvider.Value;
+    #endregion
 }
 
 public static class FakeExtensions
