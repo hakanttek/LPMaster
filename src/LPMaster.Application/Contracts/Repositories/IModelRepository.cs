@@ -3,6 +3,6 @@ using LPMaster.Application.Contracts.Repositories.Base;
 
 namespace LPMaster.Application.Contracts.Repositories;
 
-public interface IModelRepository : IRepository<LinModel>, INamedEntityRepository<LinModel>
+public interface IModelRepository : IRepository<LinModel>
 {
 }

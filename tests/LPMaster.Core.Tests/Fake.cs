@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using LPMaster.Application.Contracts.Repositories;
 using Moq;
 using LPMaster.Application.Contracts.Repositories.Base;
+using System.Linq.Expressions;
 
 namespace LPMaster.Core.Tests;
 
@@ -134,46 +135,61 @@ public static class MockRepositoryExtensions
     public static Mock<TRepository> SetupMockRepo<TRepository, TEntity>(this Mock<TRepository> mock, DbContext context) where TRepository : class, IRepository<TEntity> where TEntity : class
     {
         DbSet<TEntity> entities = context.Set<TEntity>();
-        
+
         #region Create
-        mock.Setup(repo => repo.CreateAsync(It.IsAny<TEntity>())).Returns<TEntity>(async entity =>
+        mock.Setup(repo => repo.CreateAsync(It.IsAny<TEntity>(), It.IsAny<CancellationToken>())).Returns<TEntity, CancellationToken>(async (entity, token) =>
         {
-            await entities.AddAsync(entity);
-            await context.SaveChangesAsync();
+            await entities.AddAsync(entity, token);
+            await context.SaveChangesAsync(token);
         });
-        mock.Setup(repo => repo.CreateAsync(It.IsAny<IEnumerable<TEntity>>())).Returns<IEnumerable<TEntity>>(async entityList =>
+        mock.Setup(repo => repo.CreateAsync(It.IsAny<IEnumerable<TEntity>>(), default)).Returns<IEnumerable<TEntity>, CancellationToken>(async (entityList, cancelationToken) =>
         {
-            await entities.AddRangeAsync(entityList);
-            await context.SaveChangesAsync();
+            await entities.AddRangeAsync(entityList, cancelationToken);
+            await context.SaveChangesAsync(cancelationToken);
         });
         #endregion
+
         #region Read
-        mock.Setup(repo => repo.ReadAllAsync()).Returns(async () => await entities.AsNoTracking().ToListAsync());
+        mock.Setup(repo => repo.ReadAsync(It.IsAny<Expression<Func<TEntity, bool>>?>(), It.IsAny<bool>(), It.IsAny<CancellationToken>()))
+            .Returns<Expression<Func<TEntity, bool>>?, bool, CancellationToken>(async (filter, tracked, cancellationToken) =>
+            {
+                var query = tracked ? entities : entities.AsNoTracking();
+                return filter is not null
+                    ? await query.Where(filter).ToListAsync(cancellationToken)
+                    : await query.ToListAsync(cancellationToken);
+            });
         #endregion
+
         #region Update
-        mock.Setup(repo => repo.UpdateAsync(It.IsAny<TEntity>())).Returns<TEntity>(async entity =>
+        mock.Setup(repo => repo.UpdateAsync(It.IsAny<TEntity>(), It.IsAny<CancellationToken>()))
+            .Returns<TEntity, CancellationToken>(async (entity, cancellationToken) =>
         {
             entities.Update(entity);
-            await context.SaveChangesAsync();
+            await context.SaveChangesAsync(cancellationToken);
         });
-        mock.Setup(repo => repo.UpdateAsync(It.IsAny<IEnumerable<TEntity>>())).Returns<IEnumerable<TEntity>>(async entityList =>
+        mock.Setup(repo => repo.UpdateAsync(It.IsAny<IEnumerable<TEntity>>(), It.IsAny<CancellationToken>()))
+            .Returns<IEnumerable<TEntity>, CancellationToken>(async (entityList, cancellationToken) =>
         {
             entities.UpdateRange(entityList);
-            await context.SaveChangesAsync();
+            await context.SaveChangesAsync(cancellationToken);
         });
         #endregion
+
         #region Delete
-        mock.Setup(repo => repo.DeleteAsync(It.IsAny<TEntity>())).Returns<TEntity>(async entity =>
+        mock.Setup(repo => repo.DeleteAsync(It.IsAny<TEntity>(), It.IsAny<CancellationToken>()))
+            .Returns<TEntity, CancellationToken>(async (entity, cancellationToken) =>
         {
             entities.Remove(entity);
-            await context.SaveChangesAsync();
+            await context.SaveChangesAsync(cancellationToken);
         });
-        mock.Setup(repo => repo.DeleteAsync(It.IsAny<IEnumerable<TEntity>>())).Returns<IEnumerable<TEntity>>(async entityList =>
+        mock.Setup(repo => repo.DeleteAsync(It.IsAny<IEnumerable<TEntity>>(), It.IsAny<CancellationToken>()))
+            .Returns<IEnumerable<TEntity>, CancellationToken>(async (entityList, cancellationToken) =>
         {
             entities.RemoveRange(entityList);
-            await context.SaveChangesAsync();
+            await context.SaveChangesAsync(cancellationToken);
         });
         #endregion
+
         return mock;
     }
 }
