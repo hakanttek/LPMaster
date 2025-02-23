@@ -36,7 +36,7 @@ public static class Fake
                         List<Multi> allMultis = multis?.ToList() ?? new();
                         for (int i = 0; i < numberOfMulti; i++)
                             allMultis.Add(CreateMulti(e));
-                        return multis;
+                        return allMultis;
                     })
                     .Generate(count);
 
