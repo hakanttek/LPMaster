@@ -13,9 +13,11 @@ public class ReadModelQueryHandler(IModelRepository repository, IMapper mapper) 
 {
     public async Task<ModelReadDto> Handle(ReadModelQuery request, CancellationToken cancellationToken)
     {
-        if(request.Id is null && request.Name is null)
+        // Check if either Id or Name is provided
+        if (request.Id is null && request.Name is null)
             throw new BadRequestException("Id or Name must be provided");
-        else if(request.Id is not null && request.Name is not null)
+        // Check if both Id and Name are provided
+        else if (request.Id is not null && request.Name is not null)
             throw new BadRequestException("Only one of Id or Name must be provided");
 
         var model = (request.Id is null
