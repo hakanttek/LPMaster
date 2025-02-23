@@ -18,6 +18,8 @@ public interface IRepository<TEntity> where TEntity : class
 
     Task DeleteAsync(TEntity entity, CancellationToken cancellationToken = default);
 
+    Task<int> CountAsync(Expression<Func<TEntity, bool>>? filter = null, CancellationToken cancellationToken = default);
+
     #region Range
     /// <summary>
     /// 
