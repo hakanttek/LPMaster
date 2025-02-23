@@ -78,7 +78,7 @@ public static class Fake
     #endregion
 
     #region Dependency Injection
-    private static readonly Lazy<IServiceProvider> _lazyServiceProvider = new(() =>
+    public static IServiceProvider CreateProvider()
     {
         static Mock<IModelRepository> CreateMockModelRepo(MockDbContext context) => new Mock<IModelRepository>().SetupMockRepo<IModelRepository, LinModel>(context);
         static Mock<IEquationRepository> CreateMockEquationRepo(MockDbContext context) => new Mock<IEquationRepository>().SetupMockRepo<IEquationRepository, LinEquation>(context);
@@ -94,7 +94,9 @@ public static class Fake
             .AddScoped(sp => CreateMockDvarRepo(sp.GetRequiredService<MockDbContext>()).Object);
 
         return services.BuildServiceProvider();
-    });
+    }
+
+    private static readonly Lazy<IServiceProvider> _lazyServiceProvider = new(CreateProvider);
 
     public static IServiceProvider Provider => _lazyServiceProvider.Value;
     #endregion

@@ -9,12 +9,21 @@ namespace LPMaster.Core.Tests.Application;
 
 public class ModelTests
 {
+    private IServiceProvider _provider;
     private IMediator _mediator;
 
     [SetUp]
     public void Setup()
     {
-        _mediator = Fake.Provider.GetRequiredService<IMediator>();
+        _provider = Fake.CreateProvider();
+        _mediator = _provider.GetRequiredService<IMediator>();
+    }
+
+    [TearDown]
+    public void TearDown()
+    {
+        if (_provider is IDisposable disposable)
+            disposable.Dispose();
     }
 
     [Test]
