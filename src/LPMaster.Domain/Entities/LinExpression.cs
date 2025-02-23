@@ -16,5 +16,7 @@ public class LinExpression : IHasId<int>, IDescribable, IVerifiable
     [ForeignKey(nameof(ModelId))]
     public required LinModel Model { get; init; }
 
+    public bool Constant => !Multis.Any() || Multis.Any(m => !m.Constant);
+
     public bool Verified => ModelId == Model.Id && Multis.Any() && Multis.All(m => m.Model.Id == ModelId);
 }

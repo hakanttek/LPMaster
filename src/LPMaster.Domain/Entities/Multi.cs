@@ -11,7 +11,7 @@ public class Multi : IVerifiable
 
     public DVar? DVar { get; init; }
 
-    public bool IsConstant => DVar is null;
+    public bool Constant => DVar is null;
 
     public int ModelId => Expression.ModelId;
 

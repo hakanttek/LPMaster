@@ -36,7 +36,7 @@ public class LinEquation : IDescribable, IVerifiable
                     (Model.Id == ModelId) &&
                     (LeftExpression?.ModelId is null || LeftExpression.ModelId == ModelId) &&
                     (RightExpression?.ModelId is null || RightExpression.ModelId == ModelId) &&
-                    (LeftExpression?.ModelId is not null || RightExpression?.ModelId is not null);
+                    !(LeftExpression.IsConstant() && RightExpression.IsConstant());
             }
             catch (ModelOverlapException)
             {

@@ -33,7 +33,7 @@ public class MultiTests
         };
 
         // Act
-        var isConstant = multi.IsConstant;
+        var isConstant = multi.Constant;
 
         // Assert
         Assert.That(isConstant, Is.EqualTo(expectedIsConstant));

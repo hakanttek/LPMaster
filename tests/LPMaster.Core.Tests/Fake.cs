@@ -40,9 +40,7 @@ public static class Fake
                     })
                     .Generate(count);
 
-    public static LinExpression CreateEmptyExpression(LinModel model) => CreateExpression(model).First();
-
-    public static LinExpression CreateConstantExpression(LinModel model) => CreateExpression(model).First();
+    public static LinExpression CreateConstantExpression(LinModel model) => CreateExpression(model, Enumerable.Empty<Multi>(), 0).First();
     #endregion
 
     #region Equation

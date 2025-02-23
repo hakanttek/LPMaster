@@ -44,7 +44,7 @@ public class ExpressionTests
         foreach (var model in models)
             multis.AddRange(model.CreateMulti(Random.Shared.Next(2, 5), model.CreateExpression()));
 
-        var expression = Fake.CreateExpression(_model, multis, numberOfMulti: nOfModel == 0 ? 0 : 5, count: 1).First();
+        var expression = Fake.CreateExpression(_model, multis, numberOfMulti: nOfModel == 1 ? 5 : 0, count: 1).First();
         
         // Act
         var verified = expression.Verified;
