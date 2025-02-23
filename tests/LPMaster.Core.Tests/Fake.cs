@@ -139,11 +139,13 @@ public static class MockRepositoryExtensions
         {
             await entities.AddAsync(entity, token);
             await context.SaveChangesAsync(token);
+            return entity;
         });
         mock.Setup(repo => repo.CreateAsync(It.IsAny<IEnumerable<TEntity>>(), default)).Returns<IEnumerable<TEntity>, CancellationToken>(async (entityList, cancelationToken) =>
         {
             await entities.AddRangeAsync(entityList, cancelationToken);
             await context.SaveChangesAsync(cancelationToken);
+            return entityList;
         });
         #endregion
 
