@@ -80,18 +80,18 @@ public static class Fake
     #region Dependency Injection
     private static readonly Lazy<IServiceProvider> _lazyServiceProvider = new(() =>
     {
-        static Mock<IModelRepository> CreateMockModelRepo(DbContext context) => new Mock<IModelRepository>().SetupMockRepo<IModelRepository, LinModel>(context);
-        static Mock<IEquationRepository> CreateMockEquationRepo(DbContext context) => new Mock<IEquationRepository>().SetupMockRepo<IEquationRepository, LinEquation>(context);
-        static Mock<IExpressionRepository> CreateMockExpressionRepo(DbContext context) => new Mock<IExpressionRepository>().SetupMockRepo<IExpressionRepository, LinExpression>(context);
-        static Mock<IDVarRepository> CreateMockDvarRepo(DbContext context) => new Mock<IDVarRepository>().SetupMockRepo<IDVarRepository, DVar>(context);
+        static Mock<IModelRepository> CreateMockModelRepo(MockDbContext context) => new Mock<IModelRepository>().SetupMockRepo<IModelRepository, LinModel>(context);
+        static Mock<IEquationRepository> CreateMockEquationRepo(MockDbContext context) => new Mock<IEquationRepository>().SetupMockRepo<IEquationRepository, LinEquation>(context);
+        static Mock<IExpressionRepository> CreateMockExpressionRepo(MockDbContext context) => new Mock<IExpressionRepository>().SetupMockRepo<IExpressionRepository, LinExpression>(context);
+        static Mock<IDVarRepository> CreateMockDvarRepo(MockDbContext context) => new Mock<IDVarRepository>().SetupMockRepo<IDVarRepository, DVar>(context);
 
         var services = new ServiceCollection()
             .AddLPMasterApplication()
-            .AddDbContext<DbContext>(opt => opt.UseInMemoryDatabase("DefaultFakeDB"))
-            .AddScoped(sp => CreateMockModelRepo(sp.GetRequiredService<DbContext>()).Object)
-            .AddScoped(sp => CreateMockEquationRepo(sp.GetRequiredService<DbContext>()).Object)
-            .AddScoped(sp => CreateMockExpressionRepo(sp.GetRequiredService<DbContext>()).Object)
-            .AddScoped(sp => CreateMockDvarRepo(sp.GetRequiredService<DbContext>()).Object);
+            .AddDbContext<MockDbContext>(opt => opt.UseInMemoryDatabase("DefaultFakeDB"))
+            .AddScoped(sp => CreateMockModelRepo(sp.GetRequiredService<MockDbContext>()).Object)
+            .AddScoped(sp => CreateMockEquationRepo(sp.GetRequiredService<MockDbContext>()).Object)
+            .AddScoped(sp => CreateMockExpressionRepo(sp.GetRequiredService<MockDbContext>()).Object)
+            .AddScoped(sp => CreateMockDvarRepo(sp.GetRequiredService<MockDbContext>()).Object);
 
         return services.BuildServiceProvider();
     });
@@ -130,7 +130,7 @@ public static class FakeExtensions
 
 public static class MockRepositoryExtensions
 {
-    public static Mock<TRepository> SetupMockRepo<TRepository, TEntity>(this Mock<TRepository> mock, DbContext context) where TRepository : class, IRepository<TEntity> where TEntity : class
+    public static Mock<TRepository> SetupMockRepo<TRepository, TEntity>(this Mock<TRepository> mock, MockDbContext context) where TRepository : class, IRepository<TEntity> where TEntity : class
     {
         DbSet<TEntity> entities = context.Set<TEntity>();
 
@@ -191,5 +191,27 @@ public static class MockRepositoryExtensions
         #endregion
 
         return mock;
+    }
+}
+
+public class MockDbContext(DbContextOptions options) : DbContext(options)
+{
+    public DbSet<LinModel> LinModels { get; set; }
+
+    public DbSet<LinEquation> LinEquations { get; set; }
+
+    public DbSet<LinExpression> LinExpressions { get; set; }
+
+    public DbSet<Multi> Multis { get; set; }
+
+    public DbSet<DVar> DVars { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+        modelBuilder.Entity<LinModel>().HasMany(m => m.DVars).WithOne(d => d.Model).HasForeignKey(d => d.ModelId);
+        modelBuilder.Entity<LinEquation>().HasKey(e => new { e.LeftExpressionId, e.RightExpressionId, e.ModelId });
+        modelBuilder.Entity<Multi>().HasKey(m => m.ExpressionId);
+        modelBuilder.Entity<DVar>().HasKey(d => new { d.ModelId, d.ColIndex });        
     }
 }

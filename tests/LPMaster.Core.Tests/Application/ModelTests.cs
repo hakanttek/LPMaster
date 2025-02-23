@@ -23,6 +23,7 @@ public class ModelTests
         var createCommand = new CreateModelCommand()
         {
             Objective = Objective.Minimization,
+            Name = "TestModel"
         };
 
         // Act

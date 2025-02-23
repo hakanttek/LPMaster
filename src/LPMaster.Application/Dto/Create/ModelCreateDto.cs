@@ -15,7 +15,7 @@ public record ModelCreateDto()
     /// <summary>
     /// The name of the model.
     /// </summary>
-    public string? Name { get; init; } = null;
+    public required string Name { get; init; }
 
     /// <summary>
     /// The description of the model.
