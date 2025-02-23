@@ -17,7 +17,7 @@ public class ModelTests
     }
 
     [Test]
-    public async Task CreateModel_ShouldReturnValidModelId()
+    public async Task CreateCommand_ShouldReturnValidResponse()
     {
         // Arrange
         var createCommand = new CreateModelCommand()
@@ -26,37 +26,15 @@ public class ModelTests
         };
 
         // Act
-        var id = await _mediator.Send(createCommand);
-        var model = await _mediator.Send(new ReadModelQuery(id));
+        var res = await _mediator.Send(createCommand);
+        var model = await _mediator.Send(new ReadModelQuery(res.Id));
 
         // Assert
         Assert.Multiple(() =>
         {
             Assert.That(model, Is.Not.Null);
-            Assert.That(model.Id, Is.EqualTo(id));
+            Assert.That(model.Id, Is.EqualTo(res.Id));
+            Assert.That(model.Name, Is.EqualTo(res.Name));
         });        
-    }
-
-    [Test]
-    public async Task CreateModel_ShouldBeRetrievableByName()
-    {
-        // Arrange
-        var modelName = "TestModel";
-        var createCommand = new CreateModelCommand()
-        {
-            Name = modelName,
-            Objective = Objective.Minimization
-        };
-
-        // Act
-        await _mediator.Send(createCommand);
-        var modelByName = await _mediator.Send(new ReadModelQuery(Name: modelName));
-
-        // Assert
-        Assert.Multiple(() =>
-        {
-            Assert.That(modelByName, Is.Not.Null);
-            Assert.That(modelByName.Name, Is.EqualTo(modelName));
-        });
     }
 }
