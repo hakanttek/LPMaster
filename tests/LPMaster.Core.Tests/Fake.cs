@@ -190,6 +190,14 @@ public static class MockRepositoryExtensions
         });
         #endregion
 
+        #region CountAsync
+        mock.Setup(repo => repo.CountAsync(It.IsAny<Expression<Func<TEntity, bool>>?>(), It.IsAny<CancellationToken>()))
+            .Returns<Expression<Func<TEntity, bool>>?, CancellationToken>(async (filter, cancellationToken) => filter is not null
+                ? await entities.CountAsync(filter, cancellationToken)
+                : await entities.CountAsync(cancellationToken)
+            );
+        #endregion
+
         return mock;
     }
 }
