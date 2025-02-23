@@ -2,21 +2,23 @@
 
 namespace LPMaster.Application.Dto.Create;
 
-public record ModelCreateDto
+/// <summary>
+/// Data transfer object for creating a model.
+/// </summary>
+public record ModelCreateDto()
 {
-    public required Objective Objective { get; set; }
+    /// <summary>
+    /// The objective of the model. Default is <see cref="Objective.Minimization"/>.
+    /// </summary>
+    public Objective Objective { get; init; } = Objective.Minimization;
 
-    public ExpressionCreateDto ObjectiveFunction { get; init; } = new ExpressionCreateDto();
+    /// <summary>
+    /// The name of the model.
+    /// </summary>
+    public string? Name { get; init; } = null;
 
-    protected internal List<EquationCreateDto> _constraints = new();
-
-    public IEnumerable<EquationCreateDto> Constraints
-    {
-        get => _constraints;
-        init => _constraints = value.ToList();
-    }
-
-    public string? Name { get; set; }
-
-    public string? Description { get; set; }
+    /// <summary>
+    /// The description of the model.
+    /// </summary>
+    public string? Description { get; init; } = null;
 }

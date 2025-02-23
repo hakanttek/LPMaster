@@ -1,6 +1,4 @@
 ﻿using LPMaster.Domain.Entities;
-using LPMaster.Domain.Enums;
-using System.Linq.Expressions;
 
 namespace LPMaster.Core.Tests.Entities;
 

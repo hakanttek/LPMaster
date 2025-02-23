@@ -11,13 +11,13 @@ public class LinModel : IHasId<int>, INameable, IDescribable, IVerifiable
 
     public LinExpression? ObjectiveFunction { get; init; }
 
-    public IEnumerable<LinEquation> Constraints { get; init; } = Enumerable.Empty<LinEquation>();
+    public IEnumerable<LinEquation>? Constraints { get; init; }
 
     public required string Name { get; init; }
 
     public string? Description { get; init; }
 
-    public bool Verified => ObjectiveFunction?.Verified ?? false && Constraints.All(c => c.Verified);
+    public bool Verified => ObjectiveFunction.IsVerified() && Constraints.IsVerified();
 
     public IEnumerable<DVar> DVars { get; init; } = Enumerable.Empty<DVar>();
 }

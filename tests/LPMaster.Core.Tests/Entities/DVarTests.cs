@@ -1,5 +1,4 @@
 ﻿using LPMaster.Domain.Entities;
-using LPMaster.Domain.Enums;
 
 namespace LPMaster.Core.Tests.Entities;
 

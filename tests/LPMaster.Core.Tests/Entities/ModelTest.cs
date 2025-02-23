@@ -1,6 +1,4 @@
-﻿using LPMaster.Domain.Entities;
-
-namespace LPMaster.Core.Tests;
+﻿namespace LPMaster.Core.Tests.Entities;
 
 public class ModelTest
 {
