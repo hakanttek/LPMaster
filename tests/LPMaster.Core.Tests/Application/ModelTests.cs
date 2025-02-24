@@ -30,11 +30,7 @@ public class ModelTests
     public async Task CreateCommand_ShouldReturnValidResponse()
     {
         // Arrange
-        var createCommand = new CreateModelCommand()
-        {
-            Objective = Objective.Minimization,
-            Name = "TestModel"
-        };
+        var createCommand = new CreateModelCommand("TestModel");
 
         // Act
         var res = await _mediator.Send(createCommand);
@@ -56,11 +52,7 @@ public class ModelTests
     {
         // Arrange
         var modelName = "TestModel";
-        var createCommand = new CreateModelCommand()
-        {
-            Objective = Objective.Minimization,
-            Name = modelName
-        };
+        var createCommand = new CreateModelCommand(modelName);
         Type? exceptionType = null;
 
         // Act

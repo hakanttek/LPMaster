@@ -1,14 +1,14 @@
 ﻿using AutoMapper;
 using LPMaster.Application.Contracts.Repositories;
 using LPMaster.Application.Contracts.Repositories.Base;
-using LPMaster.Application.Dto.Create;
 using LPMaster.Application.Exceptions;
 using LPMaster.Domain.Entities;
+using LPMaster.Domain.Enums;
 using MediatR;
 
 namespace LPMaster.Application.Models.Commands;
 
-public record CreateModelCommand(): ModelCreateDto, IRequest<CreateModelResult>;
+public record CreateModelCommand(string Name, Objective Objective = Objective.Minimization, string? Description = null) : IRequest<CreateModelResult>;
 
 public record CreateModelResult(int Id, string? Name = null);
 
