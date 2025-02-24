@@ -1,6 +1,6 @@
 ﻿using LPMaster.Domain.Entities;
 using System;
-namespace LPMaster.Application.Dto.Update;
+namespace LPMaster.Application.Common.Dto.Update;
 
 public record MultiUpdateDto
 {

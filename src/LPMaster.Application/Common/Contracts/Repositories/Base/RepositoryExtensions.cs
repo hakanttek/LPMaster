@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace LPMaster.Application.Contracts.Repositories.Base;
+namespace LPMaster.Application.Common.Contracts.Repositories.Base;
 
 public static class RepositoryExtensions
 {

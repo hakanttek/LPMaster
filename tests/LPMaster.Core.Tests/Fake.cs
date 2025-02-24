@@ -4,10 +4,10 @@ using LPMaster.Domain.Enums;
 using Microsoft.Extensions.DependencyInjection;
 using LPMaster.Application;
 using Microsoft.EntityFrameworkCore;
-using LPMaster.Application.Contracts.Repositories;
 using Moq;
-using LPMaster.Application.Contracts.Repositories.Base;
 using System.Linq.Expressions;
+using LPMaster.Application.Common.Contracts.Repositories;
+using LPMaster.Application.Common.Contracts.Repositories.Base;
 
 namespace LPMaster.Core.Tests;
 

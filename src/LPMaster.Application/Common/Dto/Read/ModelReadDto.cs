@@ -1,7 +1,6 @@
-﻿using LPMaster.Application.Dto.Update;
-using LPMaster.Domain.Enums;
+﻿using LPMaster.Domain.Enums;
 
-namespace LPMaster.Application.Dto.Read;
+namespace LPMaster.Application.Common.Dto.Read;
 
 public record ModelReadDto
 {

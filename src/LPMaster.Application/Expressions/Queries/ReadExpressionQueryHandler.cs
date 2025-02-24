@@ -1,4 +1,4 @@
-﻿using LPMaster.Application.Dto.Read;
+﻿using LPMaster.Application.Common.Dto.Read;
 using MediatR;
 
 namespace LPMaster.Application.Expressions.Queries;

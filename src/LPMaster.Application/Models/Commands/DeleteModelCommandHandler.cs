@@ -1,6 +1,6 @@
-﻿using LPMaster.Application.Contracts.Repositories;
-using LPMaster.Application.Contracts.Repositories.Base;
-using LPMaster.Application.Exceptions;
+﻿using LPMaster.Application.Common.Contracts.Repositories;
+using LPMaster.Application.Common.Contracts.Repositories.Base;
+using LPMaster.Application.Common.Exceptions;
 using MediatR;
 
 namespace LPMaster.Application.Models.Commands;

@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using LPMaster.Application.Contracts.Repositories;
-using LPMaster.Application.Contracts.Repositories.Base;
-using LPMaster.Application.Exceptions;
+using LPMaster.Application.Common.Contracts.Repositories;
+using LPMaster.Application.Common.Contracts.Repositories.Base;
+using LPMaster.Application.Common.Exceptions;
 using LPMaster.Domain.Entities;
 using LPMaster.Domain.Enums;
 using MediatR;

@@ -1,4 +1,4 @@
-﻿namespace LPMaster.Application.Exceptions;
+﻿namespace LPMaster.Application.Common.Exceptions;
 
 public class ServiceException(bool internalError, string? message = null, Exception? innerException = null) : Exception(message, innerException)
 {

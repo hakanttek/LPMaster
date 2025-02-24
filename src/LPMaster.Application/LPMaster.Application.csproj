@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DVar\" />
+    <Folder Include="DVars\" />
   </ItemGroup>
 
 </Project>

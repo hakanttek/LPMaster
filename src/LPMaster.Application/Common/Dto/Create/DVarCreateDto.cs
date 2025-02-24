@@ -1,4 +1,4 @@
-﻿namespace LPMaster.Application.Dto.Create;
+﻿namespace LPMaster.Application.Common.Dto.Create;
 
 public record DVarCreateDto()
 {

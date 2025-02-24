@@ -1,4 +1,4 @@
-﻿using LPMaster.Application.Dto.Create;
+﻿using LPMaster.Application.Common.Dto.Create;
 using MediatR;
 
 namespace LPMaster.Application.Expressions.Commands;

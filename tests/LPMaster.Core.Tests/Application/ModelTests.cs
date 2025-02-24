@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using LPMaster.Application.Dto.Update;
-using LPMaster.Application.Exceptions;
+using LPMaster.Application.Common.Dto.Update;
+using LPMaster.Application.Common.Exceptions;
 using LPMaster.Application.Models.Commands;
 using LPMaster.Application.Models.Queries;
 using MediatR;
@@ -137,7 +137,9 @@ public class ModelTests
     public async Task DeleteCommand_ShouldDeleteCorrectly(bool createNewModel, bool deleteById, bool deleteByName, Type? expectedExceptionType)
     {
         // Arrange
-        var createResult = createNewModel ? await _mediator.Send(new CreateModelCommand("TestModel")) : new(-1, "TestModel");
+        var createResult = createNewModel
+            ? await _mediator.Send(new CreateModelCommand(Guid.NewGuid().ToString()))
+            : new(-1, Guid.NewGuid().ToString());
         var deleteCommand = new DeleteModelCommand(deleteById ? createResult.Id : null, deleteByName ? createResult.Name : null);
 
         // Act        

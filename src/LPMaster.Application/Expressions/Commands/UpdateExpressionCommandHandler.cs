@@ -1,4 +1,4 @@
-﻿using LPMaster.Application.Dto.Update;
+﻿using LPMaster.Application.Common.Dto.Update;
 using MediatR;
 
 namespace LPMaster.Application.Expressions.Commands;
