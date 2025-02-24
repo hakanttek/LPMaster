@@ -99,7 +99,7 @@ public class ModelTests
     }
 
     [Test]
-    public async Task UpdateCommand_ShouldUpdateModelCorrectly()
+    public async Task UpdateCommand_ShouldUpdateCorrectly()
     {
         // Arrange
         var createCommand = new CreateModelCommand("TestModel");
@@ -126,5 +126,32 @@ public class ModelTests
             Assert.That(modelUpdateDto.Description, Is.EqualTo(updatedModel.Description));
             Assert.That(modelUpdateDto.Objective, Is.EqualTo(updatedModel.Objective));
         });
+    }
+
+    [Test]
+    [TestCase(true, true, false, null, TestName = "ShouldNotThrow_WhenDeleteById")]
+    [TestCase(true, false, true, null, TestName = "ShouldNotThrow_WhenDeleteByName")]
+    [TestCase(true, false, false, typeof(BadRequestException), TestName = "ShouldThrowBadRequest_WhenNeitherIdNorNameProvided")]
+    [TestCase(true, true, true, typeof(BadRequestException), TestName = "ShouldThrowBadRequest_WhenBothIdAndNameProvided")]
+    [TestCase(false, true, false, typeof(NotFoundException), TestName = "ShouldThrowNotFound_WhenIdProvidedButNoData")]
+    public async Task DeleteCommand_ShouldDeleteCorrectly(bool createNewModel, bool deleteById, bool deleteByName, Type? expectedExceptionType)
+    {
+        // Arrange
+        var createResult = createNewModel ? await _mediator.Send(new CreateModelCommand("TestModel")) : new(-1, "TestModel");
+        var deleteCommand = new DeleteModelCommand(deleteById ? createResult.Id : null, deleteByName ? createResult.Name : null);
+
+        // Act        
+        Type? exceptionType = null;        
+        try
+        {
+            await _mediator.Send(deleteCommand);
+        }
+        catch (Exception ex)
+        {
+            exceptionType = ex.GetType();
+        }
+
+        // Assert
+        Assert.That(exceptionType, Is.EqualTo(expectedExceptionType));
     }
 }

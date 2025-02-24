@@ -10,7 +10,7 @@ namespace LPMaster.Application.Models.Commands;
 
 public record CreateModelCommand(string Name, Objective Objective = Objective.Minimization, string? Description = null) : IRequest<CreateModelResult>;
 
-public record CreateModelResult(int Id, string? Name = null);
+public record CreateModelResult(int Id, string Name);
 
 public class CreateModelCommandHandler(IMapper mapper, IModelRepository repository) : IRequestHandler<CreateModelCommand, CreateModelResult>
 {
