@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
-using LPMaster.Application.Common.Dto.Read;
-using LPMaster.Application.Common.Dto.Update;
+using LPMaster.Application.Common.Models.Read;
+using LPMaster.Application.Common.Models.Update;
 using LPMaster.Application.Models.Commands;
 using LPMaster.Domain.Entities;
 
-namespace LPMaster.Application.Common.Dto;
+namespace LPMaster.Application.Common.Models;
 
 public class DtoProfile : Profile
 {

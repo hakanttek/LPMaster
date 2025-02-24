@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using LPMaster.Application.Common.Contracts.Repositories;
 using LPMaster.Application.Common.Contracts.Repositories.Base;
-using LPMaster.Application.Common.Dto.Update;
+using LPMaster.Application.Common.Models.Update;
 using LPMaster.Application.Common.Exceptions;
 using MediatR;
 

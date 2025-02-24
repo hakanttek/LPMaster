@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using LPMaster.Application.Common.Dto.Update;
+using LPMaster.Application.Common.Models.Update;
 using LPMaster.Application.Common.Exceptions;
 using LPMaster.Application.Models.Commands;
 using LPMaster.Application.Models.Queries;
@@ -54,7 +54,7 @@ public class ModelTests
     public async Task CreateCommand_ShouldThrowExpectedException(int numberOfCreation, Type? expectedExceptionType = null)
     {
         // Arrange
-        var modelName = "TestModel";
+        var modelName = Guid.NewGuid().ToString();
         var createCommand = new CreateModelCommand(modelName);
         Type? exceptionType = null;
 
@@ -102,7 +102,7 @@ public class ModelTests
     public async Task UpdateCommand_ShouldUpdateCorrectly()
     {
         // Arrange
-        var createCommand = new CreateModelCommand("TestModel");
+        var createCommand = new CreateModelCommand(Guid.NewGuid().ToString());
         var createResult = await _mediator.Send(createCommand);
         var model = await _mediator.Send(new ReadModelQuery(createResult.Id));
         var modelUpdateDto = new ModelUpdateDto()
@@ -111,7 +111,7 @@ public class ModelTests
             Description = model.Description,
             Name = model.Name
         };
-        modelUpdateDto.Name = "UpdatedModel";
+        modelUpdateDto.Name = Guid.NewGuid().ToString();
         modelUpdateDto.Description = "UpdatedDescription";
         var updateCommand = new UpdateModelCommand(modelUpdateDto, createResult.Id);
 

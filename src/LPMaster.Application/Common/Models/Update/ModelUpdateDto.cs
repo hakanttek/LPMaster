@@ -1,6 +1,6 @@
 ﻿using LPMaster.Domain.Enums;
 
-namespace LPMaster.Application.Common.Dto.Update;
+namespace LPMaster.Application.Common.Models.Update;
 
 public record ModelUpdateDto
 {

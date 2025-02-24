@@ -1,6 +1,6 @@
 ﻿using LPMaster.Domain.Enums;
 
-namespace LPMaster.Application.Common.Dto.Read;
+namespace LPMaster.Application.Common.Models.Read;
 
 public record ModelReadDto
 {
