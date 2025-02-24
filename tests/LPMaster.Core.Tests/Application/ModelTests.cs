@@ -1,7 +1,8 @@
-﻿using LPMaster.Application.Exceptions;
+﻿using AutoMapper;
+using LPMaster.Application.Dto.Update;
+using LPMaster.Application.Exceptions;
 using LPMaster.Application.Models.Commands;
 using LPMaster.Application.Models.Queries;
-using LPMaster.Domain.Enums;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -11,12 +12,14 @@ public class ModelTests
 {
     private IServiceProvider _provider;
     private IMediator _mediator;
+    private IMapper _mapper;
 
     [SetUp]
     public void Setup()
     {
         _provider = Fake.CreateProvider();
         _mediator = _provider.GetRequiredService<IMediator>();
+        _mapper = _provider.GetRequiredService<IMapper>();
     }
 
     [TearDown]
@@ -93,5 +96,30 @@ public class ModelTests
 
         // Assert
         Assert.That(exceptionType, Is.EqualTo(expectedExceptionType));
+    }
+
+    [Test]
+    public async Task UpdateCommand_ShouldUpdateModelCorrectly()
+    {
+        // Arrange
+        var createCommand = new CreateModelCommand("TestModel");
+        var createResult = await _mediator.Send(createCommand);
+        var model = await _mediator.Send(new ReadModelQuery(createResult.Id));
+        var modelUpdateDto = _mapper.Map<ModelUpdateDto>(model);
+        modelUpdateDto.Name = "UpdatedModel";
+        modelUpdateDto.Description = "UpdatedDescription";
+        var updateCommand = new UpdateModelCommand(modelUpdateDto, createResult.Id);
+
+        // Act
+        await _mediator.Send(updateCommand);
+        var updatedModel = await _mediator.Send(new ReadModelQuery(createResult.Id));
+
+        // Assert
+        Assert.Multiple(() =>
+        {
+            Assert.That(modelUpdateDto.Name, Is.EqualTo(updatedModel.Name));
+            Assert.That(modelUpdateDto.Description, Is.EqualTo(updatedModel.Description));
+            Assert.That(modelUpdateDto.Objective, Is.EqualTo(updatedModel.Objective));
+        });
     }
 }

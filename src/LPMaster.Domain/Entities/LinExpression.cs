@@ -7,7 +7,7 @@ public class LinExpression : IHasId<int>, IDescribable, IVerifiable
 {
     public required int Id { get; init; }
 
-    public IEnumerable<Multi> Multis { get; init; } = Enumerable.Empty<Multi>();
+    public List<Multi> Multis { get; init; } = new List<Multi>();
 
     public string? Description { get; init; }
 
