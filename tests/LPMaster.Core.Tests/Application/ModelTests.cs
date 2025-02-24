@@ -105,7 +105,12 @@ public class ModelTests
         var createCommand = new CreateModelCommand("TestModel");
         var createResult = await _mediator.Send(createCommand);
         var model = await _mediator.Send(new ReadModelQuery(createResult.Id));
-        var modelUpdateDto = _mapper.Map<ModelUpdateDto>(model);
+        var modelUpdateDto = new ModelUpdateDto()
+        {
+            Objective = model.Objective,
+            Description = model.Description,
+            Name = model.Name
+        };
         modelUpdateDto.Name = "UpdatedModel";
         modelUpdateDto.Description = "UpdatedDescription";
         var updateCommand = new UpdateModelCommand(modelUpdateDto, createResult.Id);
