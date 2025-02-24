@@ -15,4 +15,8 @@
     <ProjectReference Include="..\LPMaster.Domain\LPMaster.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="DVar\" />
+  </ItemGroup>
+
 </Project>

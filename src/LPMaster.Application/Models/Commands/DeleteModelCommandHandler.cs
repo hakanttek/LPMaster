@@ -19,8 +19,8 @@ public class DeleteModelCommandHandler(IModelRepository repository) : IRequestHa
             throw new BadRequestException("Only one of Id or Name must be provided");
 
         var model = (request.Id is null
-                ? await repository.ReadFirstAsync(m => m.Name == request.Name, tracked: true, cancellationToken: cancellationToken)
-                : await repository.ReadFirstAsync(m => m.Id == request.Id, tracked: true, cancellationToken: cancellationToken))
+                ? await repository.ReadFirstAsync(m => m.Name == request.Name, true, cancellationToken)
+                : await repository.ReadFirstAsync(m => m.Id == request.Id, true, cancellationToken))
                 ?? throw new NotFoundException("Model not found");
 
         await repository.DeleteAsync(model, cancellationToken);
