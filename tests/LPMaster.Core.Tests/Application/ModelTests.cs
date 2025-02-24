@@ -50,22 +50,22 @@ public class ModelTests
     }
 
     [Test]
-    [TestCase(1)]
-    [TestCase(2, typeof(BadRequestException))]
-    public async Task CreateModelCommand_ShouldThrowExpectedException(int numberOfCreation, Type? expectedExceptionType = null)
+    [TestCase(1, TestName = "ShouldNotThrowWhenCreateOne")]
+    [TestCase(2, typeof(BadRequestException), TestName = "ShouldThrowBadRequestExceptionWhenCreateMoreThanOne")]
+    public async Task CreateCommand_ShouldThrowExpectedException(int numberOfCreation, Type? expectedExceptionType = null)
     {
+        // Arrange
+        var modelName = "TestModel";
+        var createCommand = new CreateModelCommand()
+        {
+            Objective = Objective.Minimization,
+            Name = modelName
+        };
         Type? exceptionType = null;
+
+        // Act
         try
         {
-            // Arrange
-            var modelName = Guid.NewGuid().ToString();
-            var createCommand = new CreateModelCommand()
-            {
-                Objective = Objective.Minimization,
-                Name = modelName
-            };
-
-            // Act
             for (int i = 0; i < numberOfCreation; i++)
                 await _mediator.Send(createCommand);
         }
@@ -74,6 +74,32 @@ public class ModelTests
             exceptionType = ex.GetType();
         }
 
+        // Assert
+        Assert.That(exceptionType, Is.EqualTo(expectedExceptionType));
+    }
+
+    [Test]
+    [TestCase(-1, "Test Model", typeof(BadRequestException), TestName = "ShouldThrowBadRequestWhenBothIdAndNameProvided")]
+    [TestCase(null, null, typeof(BadRequestException), TestName = "ShouldThrowBadRequestWhenNeitherIdNorNameProvided")]
+    [TestCase(-1, null, typeof(NotFoundException), TestName = "ShouldThrowNotFoundWhenIdProvidedButNoData")]
+    [TestCase(null, "Test Model", typeof(NotFoundException), TestName = "ShouldThrowNotFoundWhenNameProvidedButNoData")]
+    public async Task ReadCommand_ShouldThrowExpectedException(int? id, string? name, Type? expectedExceptionType)
+    {
+        // Arrange
+        var readQuery = new ReadModelQuery(id, name);
+        Type? exceptionType = null;
+
+        // Act
+        try
+        {
+            await _mediator.Send(readQuery);
+        }
+        catch (Exception ex)
+        {
+            exceptionType = ex.GetType();
+        }
+
+        // Assert
         Assert.That(exceptionType, Is.EqualTo(expectedExceptionType));
     }
 }
