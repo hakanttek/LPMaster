@@ -50,8 +50,8 @@ public class ModelTests
     }
 
     [Test]
-    [TestCase(1, TestName = "ShouldNotThrowWhenCreateOne")]
-    [TestCase(2, typeof(BadRequestException), TestName = "ShouldThrowBadRequestExceptionWhenCreateMoreThanOne")]
+    [TestCase(1, TestName = "ShouldNotThrow_WhenCreateOne")]
+    [TestCase(2, typeof(BadRequestException), TestName = "ShouldThrowBadRequestException_WhenCreateMoreThanOne")]
     public async Task CreateCommand_ShouldThrowExpectedException(int numberOfCreation, Type? expectedExceptionType = null)
     {
         // Arrange
@@ -79,10 +79,10 @@ public class ModelTests
     }
 
     [Test]
-    [TestCase(-1, "Test Model", typeof(BadRequestException), TestName = "ShouldThrowBadRequestWhenBothIdAndNameProvided")]
-    [TestCase(null, null, typeof(BadRequestException), TestName = "ShouldThrowBadRequestWhenNeitherIdNorNameProvided")]
-    [TestCase(-1, null, typeof(NotFoundException), TestName = "ShouldThrowNotFoundWhenIdProvidedButNoData")]
-    [TestCase(null, "Test Model", typeof(NotFoundException), TestName = "ShouldThrowNotFoundWhenNameProvidedButNoData")]
+    [TestCase(-1, "Test Model", typeof(BadRequestException), TestName = "ShouldThrowBadRequest_WhenBothIdAndNameProvided")]
+    [TestCase(null, null, typeof(BadRequestException), TestName = "ShouldThrowBadRequest_WhenNeitherIdNorNameProvided")]
+    [TestCase(-1, null, typeof(NotFoundException), TestName = "ShouldThrowNotFound_WhenIdProvidedButNoData")]
+    [TestCase(null, "Test Model", typeof(NotFoundException), TestName = "ShouldThrowNotFound_WhenNameProvidedButNoData")]
     public async Task ReadCommand_ShouldThrowExpectedException(int? id, string? name, Type? expectedExceptionType)
     {
         // Arrange
