@@ -4,10 +4,11 @@ using LPMaster.Application.Common.Contracts.Repositories.Base;
 using LPMaster.Application.Common.Models.Update;
 using LPMaster.Application.Common.Exceptions;
 using MediatR;
+using LPMaster.Application.Common.Models;
 
 namespace LPMaster.Application.Models.Commands;
 
-public record UpdateModelCommand(ModelUpdateDto Model, int? Id = null, string? Name = null) : IRequest;
+public record UpdateModelCommand(ModelUpdateDto Model) : ModelLookupDto, IRequest;
 
 public class UpdateModelCommandHandler(IModelRepository repository, IMapper mapper) : IRequestHandler<UpdateModelCommand>
 {

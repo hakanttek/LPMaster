@@ -4,10 +4,11 @@ using LPMaster.Application.Common.Contracts.Repositories.Base;
 using LPMaster.Application.Common.Models.Read;
 using LPMaster.Application.Common.Exceptions;
 using MediatR;
+using LPMaster.Application.Common.Models;
 
 namespace LPMaster.Application.Models.Queries;
 
-public record ReadModelQuery(int? Id = null, string? Name = null) : IRequest<ModelReadDto>;
+public record ReadModelQuery : ModelLookupDto, IRequest<ModelReadDto>;
 
 public class ReadModelQueryHandler(IModelRepository repository, IMapper mapper) : IRequestHandler<ReadModelQuery, ModelReadDto>
 {

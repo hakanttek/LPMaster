@@ -1,11 +1,12 @@
 ﻿using LPMaster.Application.Common.Contracts.Repositories;
 using LPMaster.Application.Common.Contracts.Repositories.Base;
 using LPMaster.Application.Common.Exceptions;
+using LPMaster.Application.Common.Models;
 using MediatR;
 
 namespace LPMaster.Application.Models.Commands;
 
-public record DeleteModelCommand(int? Id= null, string? Name = null) : IRequest;
+public record DeleteModelCommand : ModelLookupDto, IRequest;
 
 public class DeleteModelCommandHandler(IModelRepository repository) : IRequestHandler<DeleteModelCommand>
 {

@@ -113,7 +113,7 @@ public class ModelTests
         };
         modelUpdateDto.Name = Guid.NewGuid().ToString();
         modelUpdateDto.Description = "UpdatedDescription";
-        var updateCommand = new UpdateModelCommand(modelUpdateDto, createResult.Id);
+        var updateCommand = new UpdateModelCommand(modelUpdateDto) { Id = createResult.Id };
 
         // Act
         await _mediator.Send(updateCommand);
@@ -140,7 +140,11 @@ public class ModelTests
         var createResult = createNewModel
             ? await _mediator.Send(new CreateModelCommand(Guid.NewGuid().ToString()))
             : new(-1, Guid.NewGuid().ToString());
-        var deleteCommand = new DeleteModelCommand(deleteById ? createResult.Id : null, deleteByName ? createResult.Name : null);
+        var deleteCommand = new DeleteModelCommand
+        {
+            Id = deleteById ? createResult.Id : null,
+            Name = deleteByName ? createResult.Name : null
+        };
 
         // Act        
         Type? exceptionType = null;        

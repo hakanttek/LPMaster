@@ -1,11 +1,10 @@
 ﻿using FluentValidation;
-using LPMaster.Application.Common.Models;
 
-namespace LPMaster.Application.Models.Commands;
+namespace LPMaster.Application.Common.Models;
 
-public class DeleteModelCommandValidator : ModelLookupDtoValidator<DeleteModelCommand>
+public class ModelLookupDtoValidator<TModelLookupDto> : AbstractValidator<TModelLookupDto> where TModelLookupDto : ModelLookupDto
 {
-    public DeleteModelCommandValidator()
+    public ModelLookupDtoValidator()
     {
         RuleFor(x => x.Id)
             .Null().When(x => x.Name is not null)

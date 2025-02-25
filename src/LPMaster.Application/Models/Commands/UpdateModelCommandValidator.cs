@@ -1,8 +1,9 @@
 ﻿using FluentValidation;
+using LPMaster.Application.Common.Models;
 
 namespace LPMaster.Application.Models.Commands;
 
-public class UpdateModelCommandValidator : AbstractValidator<UpdateModelCommand>
+public class UpdateModelCommandValidator : ModelLookupDtoValidator<UpdateModelCommand>
 {
     public UpdateModelCommandValidator()
     {
