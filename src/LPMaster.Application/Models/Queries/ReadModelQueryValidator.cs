@@ -1,10 +1,10 @@
 ﻿using FluentValidation;
 
-namespace LPMaster.Application.Common.Models;
+namespace LPMaster.Application.Models.Queries;
 
-public class LookupDtoValidator : AbstractValidator<LookupDto>
+public class ReadModelQueryValidator : AbstractValidator<ReadModelQuery>
 {
-    public LookupDtoValidator()
+    public ReadModelQueryValidator()
     {
         RuleFor(x => x.Id)
             .Null().When(x => x.Name is not null)

@@ -37,7 +37,7 @@ public class ModelTests
 
         // Act
         var res = await _mediator.Send(createCommand);
-        var model = await _mediator.Send(new ReadModelQuery(res.Id));
+        var model = await _mediator.Send(new ReadModelQuery() { Id = res.Id });
 
         // Assert
         Assert.Multiple(() =>
@@ -81,7 +81,7 @@ public class ModelTests
     public async Task ReadCommand_ShouldThrowExpectedException(int? id, string? name, Type? expectedExceptionType)
     {
         // Arrange
-        var readQuery = new ReadModelQuery(id, name);
+        var readQuery = new ReadModelQuery() { Id = id, Name = name };
         Type? exceptionType = null;
 
         // Act
@@ -104,7 +104,7 @@ public class ModelTests
         // Arrange
         var createCommand = new CreateModelCommand(Guid.NewGuid().ToString());
         var createResult = await _mediator.Send(createCommand);
-        var model = await _mediator.Send(new ReadModelQuery(createResult.Id));
+        var model = await _mediator.Send(new ReadModelQuery() { Id = createResult.Id });
         var modelUpdateDto = new ModelUpdateDto()
         {
             Objective = model.Objective,
@@ -117,7 +117,7 @@ public class ModelTests
 
         // Act
         await _mediator.Send(updateCommand);
-        var updatedModel = await _mediator.Send(new ReadModelQuery(createResult.Id));
+        var updatedModel = await _mediator.Send(new ReadModelQuery() { Id = createResult.Id });
 
         // Assert
         Assert.Multiple(() =>
