@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using MediatR.Extensions.FluentValidation.AspNetCore;
+using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
 namespace LPMaster.Application;
@@ -10,5 +11,6 @@ public static class DependencyInjection
         .AddMediatR(cfg =>
         {
             cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
-        });
+        })
+        .AddFluentValidation([Assembly.GetExecutingAssembly()]);
 }

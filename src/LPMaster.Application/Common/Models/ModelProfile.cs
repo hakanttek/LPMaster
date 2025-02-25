@@ -6,9 +6,9 @@ using LPMaster.Domain.Entities;
 
 namespace LPMaster.Application.Common.Models;
 
-public class DtoProfile : Profile
+public class ModelProfile : Profile
 {
-    public DtoProfile()
+    public ModelProfile()
     {
         CreateMap<LinModel, ModelReadDto>();
         CreateMap<CreateModelCommand, LinModel>();
