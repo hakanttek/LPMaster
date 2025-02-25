@@ -1,8 +1,8 @@
 ﻿using FluentValidation;
 
-namespace LPMaster.Application.Models.Queries;
+namespace LPMaster.Application.Models.Commands;
 
-public class DeleteModelCommandValidator : AbstractValidator<ReadModelQuery>
+public class DeleteModelCommandValidator : AbstractValidator<DeleteModelCommand>
 {
     public DeleteModelCommandValidator()
     {

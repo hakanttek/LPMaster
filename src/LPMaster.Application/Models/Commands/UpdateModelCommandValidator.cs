@@ -1,10 +1,10 @@
 ﻿using FluentValidation;
 
-namespace LPMaster.Application.Models.Queries;
+namespace LPMaster.Application.Models.Commands;
 
-public class DeleteModelCommandValidator : AbstractValidator<ReadModelQuery>
+public class UpdateModelCommandValidator : AbstractValidator<UpdateModelCommand>
 {
-    public DeleteModelCommandValidator()
+    public UpdateModelCommandValidator()
     {
         RuleFor(x => x.Id)
             .Null().When(x => x.Name is not null)
